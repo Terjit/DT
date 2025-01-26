@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>selectionWindow</class>
+ <widget class="QMainWindow" name="selectionWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>195</width>
+    <height>589</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DT - Select App</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="wellName">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Well Name</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>171</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="formationBtn">
+       <property name="text">
+        <string>Formation Editor</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="wellPathBtn">
+       <property name="text">
+        <string>Well Path Editor</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="wellBuilderBtn">
+       <property name="text">
+        <string>Well Builder</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cementingBtn">
+       <property name="text">
+        <string>Cementing</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bhaBtn">
+       <property name="text">
+        <string>BHA Editor</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="rigBtn">
+       <property name="text">
+        <string>Rig Information Editor</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="fluidsBtn">
+       <property name="text">
+        <string>Fluids Editor</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="hydraulicsBtn">
+       <property name="text">
+        <string>Hydraulics</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="tdBtn">
+       <property name="text">
+        <string>Torque + Drag</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="casingPicksBtn">
+       <property name="text">
+        <string>Casing Picks</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="circBtn">
+       <property name="text">
+        <string>Circulation Times</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="editWellBtn">
+       <property name="text">
+        <string>Edit Well</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="changeWellBtn">
+       <property name="text">
+        <string>Change Well</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

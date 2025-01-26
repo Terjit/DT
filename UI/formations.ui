@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>formationWindow</class>
+ <widget class="QMainWindow" name="formationWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>550</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>8</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Drilling Tools - Formation Editor - {well}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="addFormationBtn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>12</y>
+      <width>221</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Add Formation</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="commitChangesBtn">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>10</y>
+      <width>221</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Commit Changes</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>63</y>
+      <width>531</width>
+      <height>569</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Formation Name</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_2">
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Measured Depth</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>True Vertical Depth</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="f0"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="m0"/>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLineEdit" name="t0"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLineEdit" name="f1"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="m1"/>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLineEdit" name="t1"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLineEdit" name="f2"/>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="m2"/>
+     </item>
+     <item row="3" column="2">
+      <widget class="QLineEdit" name="lineEdit_9"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLineEdit" name="f3"/>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="m3"/>
+     </item>
+     <item row="4" column="2">
+      <widget class="QLineEdit" name="lineEdit_12"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLineEdit" name="f4"/>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="m4"/>
+     </item>
+     <item row="5" column="2">
+      <widget class="QLineEdit" name="t4"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLineEdit" name="f5"/>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="m5"/>
+     </item>
+     <item row="6" column="2">
+      <widget class="QLineEdit" name="t5"/>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLineEdit" name="f6"/>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="m6"/>
+     </item>
+     <item row="7" column="2">
+      <widget class="QLineEdit" name="t6"/>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLineEdit" name="f7"/>
+     </item>
+     <item row="8" column="1">
+      <widget class="QLineEdit" name="m7"/>
+     </item>
+     <item row="8" column="2">
+      <widget class="QLineEdit" name="t7"/>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLineEdit" name="f8"/>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLineEdit" name="m8"/>
+     </item>
+     <item row="9" column="2">
+      <widget class="QLineEdit" name="t8"/>
+     </item>
+     <item row="10" column="0">
+      <widget class="QLineEdit" name="f9"/>
+     </item>
+     <item row="10" column="1">
+      <widget class="QLineEdit" name="m9"/>
+     </item>
+     <item row="10" column="2">
+      <widget class="QLineEdit" name="t9"/>
+     </item>
+     <item row="11" column="0">
+      <widget class="QLineEdit" name="f10"/>
+     </item>
+     <item row="11" column="1">
+      <widget class="QLineEdit" name="m10"/>
+     </item>
+     <item row="11" column="2">
+      <widget class="QLineEdit" name="t10"/>
+     </item>
+     <item row="12" column="0">
+      <widget class="QLineEdit" name="f11"/>
+     </item>
+     <item row="12" column="1">
+      <widget class="QLineEdit" name="m11"/>
+     </item>
+     <item row="12" column="2">
+      <widget class="QLineEdit" name="t11"/>
+     </item>
+     <item row="13" column="0">
+      <widget class="QLineEdit" name="f12"/>
+     </item>
+     <item row="13" column="1">
+      <widget class="QLineEdit" name="m12"/>
+     </item>
+     <item row="13" column="2">
+      <widget class="QLineEdit" name="t12"/>
+     </item>
+     <item row="14" column="0">
+      <widget class="QLineEdit" name="f13"/>
+     </item>
+     <item row="14" column="1">
+      <widget class="QLineEdit" name="m13"/>
+     </item>
+     <item row="14" column="2">
+      <widget class="QLineEdit" name="t13"/>
+     </item>
+     <item row="15" column="0">
+      <widget class="QLineEdit" name="f14"/>
+     </item>
+     <item row="15" column="1">
+      <widget class="QLineEdit" name="m14"/>
+     </item>
+     <item row="15" column="2">
+      <widget class="QLineEdit" name="t14"/>
+     </item>
+     <item row="16" column="0">
+      <widget class="QLineEdit" name="f15"/>
+     </item>
+     <item row="16" column="1">
+      <widget class="QLineEdit" name="m15"/>
+     </item>
+     <item row="16" column="2">
+      <widget class="QLineEdit" name="t15"/>
+     </item>
+     <item row="17" column="0">
+      <widget class="QLineEdit" name="f16"/>
+     </item>
+     <item row="17" column="1">
+      <widget class="QLineEdit" name="m16"/>
+     </item>
+     <item row="17" column="2">
+      <widget class="QLineEdit" name="t16"/>
+     </item>
+     <item row="18" column="0">
+      <widget class="QLineEdit" name="f17"/>
+     </item>
+     <item row="18" column="1">
+      <widget class="QLineEdit" name="m17"/>
+     </item>
+     <item row="18" column="2">
+      <widget class="QLineEdit" name="t17"/>
+     </item>
+     <item row="19" column="0">
+      <widget class="QLineEdit" name="f18"/>
+     </item>
+     <item row="19" column="1">
+      <widget class="QLineEdit" name="m18"/>
+     </item>
+     <item row="19" column="2">
+      <widget class="QLineEdit" name="t18"/>
+     </item>
+     <item row="20" column="0">
+      <widget class="QLineEdit" name="f19"/>
+     </item>
+     <item row="20" column="1">
+      <widget class="QLineEdit" name="m19"/>
+     </item>
+     <item row="20" column="2">
+      <widget class="QLineEdit" name="t19"/>
+     </item>
+     <item row="21" column="0">
+      <widget class="QLineEdit" name="f20"/>
+     </item>
+     <item row="21" column="1">
+      <widget class="QLineEdit" name="m20"/>
+     </item>
+     <item row="21" column="2">
+      <widget class="QLineEdit" name="t20"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
