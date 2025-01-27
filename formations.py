@@ -20,7 +20,7 @@ class formationsWindow(QMainWindow):
         self.resize(550,self.y)
         self.setFixedSize(550,self.y)
         self.setWindowTitle(f"Drilling Tools - Formation Editor - {self.well}")
-        self.move(500,150)
+        self.move(250,50)
         self.show()
         
         self.ui.addFormationBtn.clicked.connect(self.addFormation)

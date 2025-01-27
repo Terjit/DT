@@ -32,7 +32,7 @@ class wellPath(QMainWindow):
                 self.show()
 
     def chartView(self):
-        self.chartViewWindow = cv.chartView()
+        self.chartViewWindow = cv.chartView(self.well)
         
         
 
