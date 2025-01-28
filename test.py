@@ -1,11 +1,12 @@
 import sqlite3
 import math
+import pandas as pd
 conn = sqlite3.connect('dt.db')
         
 cursor = conn.cursor()
 wells = []
 
-#cursor.execute("DROP TABLE FORMATIONS")
+#cursor.execute("DROP TABLE DEV")
 
 #cursor.execute("""CREATE TABLE DEV( 
 
@@ -25,18 +26,30 @@ wells = []
 #conn.commit()
 
 #cursor.execute("INSERT INTO FORMATIONS VALUES ('3T-612', 'C40', '4000', '3500')")
-well = '3T-612'
-data = cursor.execute(f"SELECT EW FROM DEV WHERE wellName = '{well}'")
+well = '3T-616'
+#data = cursor.execute(f"SELECT EW FROM DEV WHERE wellName = '{well}'")
+#for item in data:
+#    for subItem in item:
+#        wells.append(subItem)
+
+data = cursor.execute(f"SELECT DISTINCT wellName FROM DEV WHERE wellName like '3T%'" )
+
+#if not data.fetchone():
+#    print(True)
+
 for item in data:
     for subItem in item:
-        wells.append(subItem)
+        print(subItem)
 
+#cursor.execute("DELETE FROM DEV WHERE wellName = '3T-612'")
+#data = pd.read_csv('3T-616 Directional.csv')
 
+#for item in data.iterrows():
+#    print(item[1].iloc[0])
 
-#cursor.execute("DELETE FROM WELLS WHERE wellName = '500291111101'")
 conn.commit()
 
-print(wells)
+
 conn.close()               
                 
 

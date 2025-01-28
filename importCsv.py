@@ -20,10 +20,10 @@ class importCSV(QMainWindow):
         
         self.ui.cancelBtn.clicked.connect(self.cancel)
         self.ui.importBtn.clicked.connect(self.importCsv)
-        
         self.show()
 
     def importCsv(self):
+        
         fileName, _ = QFileDialog.getOpenFileName(self, "Open File", "", ".CSV Files (*.CSV)")
         if fileName:
             data = pd.read_csv(fileName)
@@ -36,8 +36,12 @@ class importCSV(QMainWindow):
         
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
-        
-        dataOut.to_sql('DEV', conn, if_exists='replace', index=False)
+        for item in dataOut.iterrows():
+            cursor.execute("INSERT INTO DEV VALUES(?,?,?,?,?,?,?,?)", 
+                           (item[1].iloc[7],item[1].iloc[0],item[1].iloc[1],item[1].iloc[2],item[1].iloc[3],item[1].iloc[4],item[1].iloc[5],item[1].iloc[6]))
+            
+        conn.commit()
+        conn.close()
         self.close()
         self.window = wp.wellPath(self.well)
         return

@@ -54,7 +54,7 @@ class Ui_importCsvWindow(object):
     # setupUi
 
     def retranslateUi(self, importCsvWindow, well):
-        importCsvWindow.setWindowTitle(QCoreApplication.translate("importCsvWindow", f"Drillint Tools - Import CSV - {well}", None))
+        importCsvWindow.setWindowTitle(QCoreApplication.translate("importCsvWindow", f"Drilling Tools - Import CSV - {well}", None))
         self.label.setText(QCoreApplication.translate("importCsvWindow", f"<html><head/><body><p>No deviation information was found in the database for {well}. </p><p>Please import a .CSV</p></body></html>", None))
         self.importBtn.setText(QCoreApplication.translate("importCsvWindow", u"Import .csv", None))
         self.label_2.setText(QCoreApplication.translate("importCsvWindow", u"TextLabel", None))

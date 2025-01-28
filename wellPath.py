@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QMainWindow, QMessageBox
 import UI.wellPathUi as wpUi
 import importCsv as ic
 import chartView as cv
+import padView as pv
 
 class wellPath(QMainWindow):
     def __init__(self, well='None'):
@@ -16,6 +17,7 @@ class wellPath(QMainWindow):
         self.move(250,50)
         
         self.ui.chartBtn.clicked.connect(self.chartView)
+        self.ui.padBtn.clicked.connect(self.padView)
         
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
@@ -28,11 +30,16 @@ class wellPath(QMainWindow):
             try:
                 self.importCsv = ic.importCSV(self.well)
             except TypeError:
-                print(True)
                 self.show()
+        conn.close()
 
     def chartView(self):
         self.chartViewWindow = cv.chartView(self.well)
+        return
+    
+    def padView(self):
+        self.padViewWindow = pv.padView(self.well)
+        return
         
         
 

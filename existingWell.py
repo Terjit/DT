@@ -27,7 +27,7 @@ class existingWell(QMainWindow):
     def getOperators(self):
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
-        data = cursor.execute("SELECT DISTINCT operator from WELLS;")
+        data = cursor.execute("SELECT DISTINCT operator from WELLS ORDER BY operator ASC;")
         for item in data:
             for subItem in item:
                 self.ui.operatorBox.addItem(subItem)
@@ -40,7 +40,7 @@ class existingWell(QMainWindow):
         value = self.ui.operatorBox.currentText()
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
-        data = cursor.execute(f"SELECT DISTINCT wellName from WELLS WHERE operator = '{value}';")
+        data = cursor.execute(f"SELECT DISTINCT wellName from WELLS WHERE operator = '{value}' ORDER BY wellName ASC;")
         for item in data:
             for subItem in item:
                 self.ui.wellBox.addItem(subItem)                  

@@ -33,7 +33,8 @@ class chartView(QMainWindow):
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()        
         self.wellDf = pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{self.well}'", conn)
-        self.formationData = cursor.execute(f"SELECT formationName, TVD FROM FORMATIONS WHERE wellName = '{self.well}' ORDER BY MD ASC ")
+        self.formationData = cursor.execute(f"SELECT formationName, TVD FROM FORMATIONS WHERE wellName = '{self.well}' ORDER BY TVD ASC")
+        self.formResults = self.formationData.fetchone()
         return
     
     def section(self):
@@ -53,7 +54,7 @@ class chartView(QMainWindow):
         self.axs.invert_yaxis()
         xmin, xmax = self.axs.get_xlim()
         self.axs.set_xlim(xmin, xmax)
-        if self.formationData: 
+        if self.formResults: 
             for item in self.formationData:
                 formations.append(item)
             for item in formations:
@@ -102,7 +103,7 @@ class chartView(QMainWindow):
         if not self.sw:
             return
         elif self.ui.formationsBox.isChecked():
-            if not self.formationData:
+            if not self.formResults:
                 QMessageBox.information(self, "No Formations Found", f"No formations were found for {self.well} in the database.\n"
                                         + "Please use the Formation Editor tool to enter some formations.")
             else:
