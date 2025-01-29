@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QMainWindow, QMessageBox
+from PySide6.QtCore import Qt
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 import pandas as pd
@@ -17,6 +18,9 @@ class chartView(QMainWindow):
         self.pullData()
         
         self.ui = cvUi.Ui_chartWindow()
+        self.sectionWin = QMainWindow()
+        self.planWin = QMainWindow()
+        self.threedWin = QMainWindow()
         self.ui.setupUi(self)
         self.setFixedSize(self.size())
         self.move(250,355)
@@ -39,8 +43,7 @@ class chartView(QMainWindow):
     
     def section(self):
         formations = []
-        self.sectionWin = QMainWindow()
-        self.figs = plt.Figure(figsize=(6.5,6.5))
+        self.figs = plt.Figure(figsize=(7.5,7.5))
         self.canvas = FigureCanvasQTAgg(self.figs)
         self.axs = self.figs.add_subplot()
         self.sectionWin.setCentralWidget(self.canvas)
@@ -59,14 +62,16 @@ class chartView(QMainWindow):
                 formations.append(item)
             for item in formations:
                 self.lines.append(self.axs.hlines(item[1], -100000, 100000, colors='green', linestyles='dashed', linewidth=0.75, visible=False))
-                self.lines.append(self.axs.text(xmax, item[1], item[0], ha='right', va='bottom', fontsize=7.5, visible=False))
+                if self.wellDf.iloc[-1]['NS'] > 0:
+                    self.lines.append(self.axs.text(xmax, item[1], item[0], ha='right', va='bottom', fontsize=7.5, visible=False))
+                else:
+                    self.lines.append(self.axs.text(xmin, item[1], item[0], ha='left', va='bottom', fontsize=7.5, visible=False))
         self.sw = True
         self.sectionWin.show()
         return
     
     def plan(self):
-        self.planWin = QMainWindow()
-        self.figp = plt.Figure(figsize=(6.5,6.5))
+        self.figp = plt.Figure(figsize=(7.5,7.5))
         self.canvas = FigureCanvasQTAgg(self.figp)
         self.axp = self.figp.add_subplot()
         self.planWin.setCentralWidget(self.canvas)
@@ -81,8 +86,7 @@ class chartView(QMainWindow):
         return
     
     def threed(self):
-        self.threedWin = QMainWindow()
-        self.fig3d = plt.Figure(figsize=(6.5,6.5))
+        self.fig3d = plt.Figure(figsize=(7.5,7.5))
         self.canvas = FigureCanvasQTAgg(self.fig3d)
         self.ax3d = self.fig3d.add_subplot(projection="3d")
         self.threedWin.setCentralWidget(self.canvas)
@@ -101,11 +105,13 @@ class chartView(QMainWindow):
     
     def formations(self):
         if not self.sw:
+            self.ui.formationsBox.setCheckState(Qt.CheckState.Unchecked)
             return
         elif self.ui.formationsBox.isChecked():
             if not self.formResults:
                 QMessageBox.information(self, "No Formations Found", f"No formations were found for {self.well} in the database.\n"
                                         + "Please use the Formation Editor tool to enter some formations.")
+                self.ui.formationsBox.setCheckState(Qt.CheckState.Unchecked)
             else:
                 for item in self.lines:
                     item.set_visible(True)
@@ -115,3 +121,10 @@ class chartView(QMainWindow):
                 item.set_visible(False)
             self.figs.canvas.draw()
         return
+    
+    def closeEvent(self, event):
+        self.sectionWin.close()
+        self.planWin.close()
+        self.threedWin.close()
+        self.close()
+        return 

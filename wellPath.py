@@ -12,6 +12,8 @@ class wellPath(QMainWindow):
         self.dt = None
         self.well = well
         self.ui = wpUi.Ui_wellPathWindow()
+        self.chartViewWindow = None
+        self.padViewWindow = None
         self.ui.setupUi(self)
         self.setFixedSize(self.size())
         self.move(250,50)
@@ -41,6 +43,12 @@ class wellPath(QMainWindow):
         self.padViewWindow = pv.padView(self.well)
         return
         
-        
+    def closeEvent(self, event):
+        if self.chartViewWindow is not None:
+            self.chartViewWindow.close()
+        if self.padViewWindow is not None:
+            self.padViewWindow.close()
+        self.close()
+        return         
 
                     

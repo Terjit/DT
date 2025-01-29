@@ -40,10 +40,10 @@ class selectionWindow(QMainWindow):
         self.hide()
         return
                 
-#    def closeEvent(self, event):
-#        quit = QMessageBox.critical(self, "Verify Close", "Are you sure you want to exit the program?", buttons=QMessageBox.Yes | QMessageBox.No)
-#        if quit == QMessageBox.No:
-#            event.ignore()
-#        else:
-#            QApplication.quit()
-#            return super().closeEvent(event)
+    def closeEvent(self, event):
+        quit = QMessageBox.critical(self, "Verify Close", "Are you sure you want to exit the program?", buttons=QMessageBox.Yes | QMessageBox.No)
+        if quit == QMessageBox.No:
+            event.ignore()
+        else:
+            QApplication.quit()
+            return super().closeEvent(event)

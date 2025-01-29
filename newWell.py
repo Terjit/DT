@@ -60,6 +60,7 @@ class newWell(QMainWindow):
         vars.append(self.ui.lonDeg)
         vars.append(self.ui.lonMin)
         vars.append(self.ui.lonSec)
+        #Convert latitude and longitude from deg min sec to decimal
         latDec = float(self.ui.latDeg.text())+float(self.ui.latMin.text())/60 + float(self.ui.latSec.text())/3600
         lonDec = float(self.ui.lonDeg.text())+float(self.ui.lonMin.text())/60 + float(self.ui.lonSec.text())/3600
         wellType = self.ui.wellType.currentText()
@@ -143,8 +144,7 @@ class newWell(QMainWindow):
             QMessageBox.warning(self, 'Error', 'Please select a well type.')
             self.ui.wellType.setStyleSheet("border: 1px solid red;")
             return
-        #Convert latitude and longitude from deg min sec to decimal
-
+        
         cursor.execute("INSERT INTO WELLS VALUES(?,?,?,?,?,?)", (vars[0].text(), cleanAPI, vars[2].text(), latDec, lonDec, wellType))
         conn.commit()
         conn.close()

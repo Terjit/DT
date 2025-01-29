@@ -6,10 +6,25 @@ conn = sqlite3.connect('dt.db')
 cursor = conn.cursor()
 wells = []
 
-#cursor.execute("DROP TABLE DEV")
+#cursor.execute("DROP TABLE FORMATIONS")
+
+#cursor.execute("""CREATE TABLE WELLS( 
+#               operator VARCHAR(255) NOT NULL,
+#               API VARCHAR(255) NOT NULL,
+#               wellName VARCHAR(255) NOT NULL,
+#               latitude FLOAT NOT NULL,
+#               longitude FLOAT NOT NULL,
+#               wellType VARCHAR(255) NOT NULL)
+#               """)
+
+#cursor.execute("""CREATE TABLE FORMATIONS ( 
+#               wellName VARCHAR(255) NOT NULL,
+#               formationName VARCHAR(255) NOT NULL,
+#               MD FLOAT NOT NULL,
+#               TVD FLOAT NOT NULL)
+#               """)
 
 #cursor.execute("""CREATE TABLE DEV( 
-
 #              wellName VARCHAR(255) NOT NULL,
 #              MD FLOAT NOT NULL,
 #              INC FLOAT NOT NULL,
@@ -17,7 +32,8 @@ wells = []
 #              TVD FLOAT,
 #              DLS FLOAT,
 #              NS FLOAT,
-#              EW FLOAT)""")     
+#              EW FLOAT
+#              )""")     
 
 #cursor.execute("INSERT INTO WELLS VALUES ('Hilcorp', '500291111114', 'W-239', 70., 150., 'Producer')")
 #cursor.execute("INSERT INTO WELLS VALUES ('CONOCO', '500291111112', '3T-612', 70.42095, 150.2628, 'Producer')")
@@ -32,14 +48,14 @@ well = '3T-616'
 #    for subItem in item:
 #        wells.append(subItem)
 
-data = cursor.execute(f"SELECT DISTINCT wellName FROM DEV WHERE wellName like '3T%'" )
+#data = cursor.execute(f"SELECT DISTINCT wellName FROM DEV WHERE wellName like '3T%'" )
 
 #if not data.fetchone():
 #    print(True)
 
-for item in data:
-    for subItem in item:
-        print(subItem)
+#for item in data:
+#    for subItem in item:
+#        print(subItem)
 
 #cursor.execute("DELETE FROM DEV WHERE wellName = '3T-612'")
 #data = pd.read_csv('3T-616 Directional.csv')
