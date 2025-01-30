@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'padView.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.1
+## Created by: Qt User Interface Compiler version 6.8.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
+from PySide6.QtWidgets import (QApplication, QCheckBox, QGridLayout, QLabel,
     QMainWindow, QPushButton, QScrollArea, QSizePolicy,
-    QWidget)
+    QVBoxLayout, QWidget)
 
 class Ui_padView(object):
     def setupUi(self, padView):
@@ -37,38 +37,38 @@ class Ui_padView(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.label_3 = QLabel(self.scrollAreaWidgetContents)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setAlignment(Qt.AlignCenter)
+        self.label_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout.addWidget(self.label_3, 0, 2, 1, 1)
 
         self.label = QLabel(self.scrollAreaWidgetContents)
         self.label.setObjectName(u"label")
-        self.label.setAlignment(Qt.AlignCenter)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
 
         self.label_2 = QLabel(self.scrollAreaWidgetContents)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setAlignment(Qt.AlignCenter)
+        self.label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout.addWidget(self.label_2, 0, 1, 1, 1)
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.widget = QWidget(self.centralwidget)
         self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(10, 10, 171, 41))
-        self.horizontalLayout = QHBoxLayout(self.widget)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.pushButton = QPushButton(self.widget)
-        self.pushButton.setObjectName(u"pushButton")
+        self.widget.setGeometry(QRect(10, 18, 171, 52))
+        self.verticalLayout = QVBoxLayout(self.widget)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.addWellBtn = QPushButton(self.widget)
+        self.addWellBtn.setObjectName(u"addWellBtn")
 
-        self.horizontalLayout.addWidget(self.pushButton)
+        self.verticalLayout.addWidget(self.addWellBtn)
 
-        self.pushButton_2 = QPushButton(self.widget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.annotationsBox = QCheckBox(self.widget)
+        self.annotationsBox.setObjectName(u"annotationsBox")
 
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.verticalLayout.addWidget(self.annotationsBox)
 
         padView.setCentralWidget(self.centralwidget)
 
@@ -82,7 +82,7 @@ class Ui_padView(object):
         self.label_3.setText(QCoreApplication.translate("padView", u"Highlight", None))
         self.label.setText(QCoreApplication.translate("padView", u"Show", None))
         self.label_2.setText(QCoreApplication.translate("padView", u"Well", None))
-        self.pushButton.setText(QCoreApplication.translate("padView", u"PushButton", None))
-        self.pushButton_2.setText(QCoreApplication.translate("padView", u"PushButton", None))
+        self.addWellBtn.setText(QCoreApplication.translate("padView", u"Add Well", None))
+        self.annotationsBox.setText(QCoreApplication.translate("padView", u"Show Well Annotations", None))
     # retranslateUi
 

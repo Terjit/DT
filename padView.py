@@ -1,10 +1,11 @@
-from PySide6.QtCore import Qt, QRect
+from PySide6.QtCore import Qt, QRect, Slot
 from PySide6.QtWidgets import QMainWindow, QMessageBox, QLabel, QCheckBox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 import sqlite3
 import pandas as pd
 import dirCalcs as dc
+import addWell as aw
 import UI.padViewUi as pvUi
 
 class padView(QMainWindow):
@@ -16,6 +17,7 @@ class padView(QMainWindow):
         self.showWell = []
         self.label = []
         self.highlight = []
+        self.annotate = []
         self.ui = pvUi.Ui_padView()
         self.threedWin = QMainWindow()
         self.ui.setupUi(self)
@@ -25,6 +27,9 @@ class padView(QMainWindow):
         self.generateBoxes()
         self.show()
         self.padThreed()
+
+        self.ui.annotationsBox.clicked.connect(self.annotateCheck)
+        self.ui.addWellBtn.clicked.connect(self.addWellWindow)
         return
 
     def getWells(self):
@@ -69,11 +74,12 @@ class padView(QMainWindow):
                 self.ui.gridLayout.addWidget(self.label[j], j+1, 1, 1, 1, alignment=Qt.AlignCenter)
                 self.highlight.append(QCheckBox())
                 self.ui.gridLayout.addWidget(self.highlight[k], k+1, 2, 1, 1, alignment=Qt.AlignCenter)
-                self.ui.scrollArea.setGeometry(QRect(10, 60, 173, h))
+                self.ui.scrollArea.setGeometry(QRect(10, 80, 173, h))
                 if self.label[j].text() == self.well:
                     self.highlight[k].setCheckState(Qt.CheckState.Checked)
                 self.showWell[i].stateChanged.connect(self.padThreed)
                 self.highlight[k].stateChanged.connect(self.padThreed)
+                self.annotate.append(1)
                 i += 1
                 j += 1
                 k += 1
@@ -97,7 +103,21 @@ class padView(QMainWindow):
             j += 1
 
         return
-    
+
+    def annotateCheck(self):
+        if self.ui.annotationsBox.isChecked():
+            j=0
+            for item in self.showWell:
+                if item.isChecked():
+                    self.annotate[j].set_visible(True)
+                j += 1    
+            self.canvas.draw()
+        else:
+            for item in self.annotate:
+                item.set_visible(False)
+            self.canvas.draw()
+        return
+
     def padThreed(self):
         self.fig3d = plt.Figure(figsize=(7.5,7.5))
         self.canvas = FigureCanvasQTAgg(self.fig3d)
@@ -113,11 +133,51 @@ class padView(QMainWindow):
         self.ax3d.view_init(azim=225, elev=30)
         self.ax3d.set_zlabel('TVD')
         self.ax3d.tick_params(labelbottom=False, labelleft = False)
+        j = 0
+        for _ in self.label:
+            self.annotate[j] = self.ax3d.text(self.wellsDf[j]['EW'].iloc[-1], self.wellsDf[j]['NS'].iloc[-1], self.wellsDf[j]['TVD'].iloc[-1], self.label[j].text())
+            self.annotate[j].set_visible(False)
+            j += 1
         self.showCheck()
         self.highlightCheck()
+        self.annotateCheck()
         self.threedWin.show()
         return
-    
+
+    def addWellWindow(self):
+        self.addWellWin = aw.addWell(self.pad)
+        self.addWellWin.dataSignal.connect(self.addWell)
+        return
+
+    @Slot(str)
+    def addWell(self, well):
+        i = len(self.showWell)
+        self.showWell.append(QCheckBox())
+        self.ui.gridLayout.addWidget(self.showWell[i], i+1, 0, 1, 1, alignment=Qt.AlignCenter)
+        self.label.append(QLabel(f"{well}", self.ui.scrollAreaWidgetContents))
+        self.ui.gridLayout.addWidget(self.label[i], i+1, 1, 1, 1, alignment=Qt.AlignCenter)
+        self.highlight.append(QCheckBox())
+        self.ui.gridLayout.addWidget(self.highlight[i], i+1, 2, 1, 1, alignment=Qt.AlignCenter)
+        self.showWell[i].stateChanged.connect(self.padThreed)
+        self.highlight[i].stateChanged.connect(self.padThreed)
+        h = 22*(i+1) + 41
+        if h < 331:
+            self.ui.scrollArea.setGeometry(QRect(10, 80, 173, h))
+
+        conn = sqlite3.connect('dt.db')
+        cursor = conn.cursor()
+        self.wellsDf.append(pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{well}'", conn))
+        data = cursor.execute(f"SELECT latitude, longitude FROM WELLS WHERE wellName = '{well}'")
+        for item in data:
+            lat, lon = item
+        x, y = dc.latLon(lat, lon)
+        self.wellsDf[-1]['EW'] += x
+        self.wellsDf[-1]['NS'] += y
+        self.annotate.append(self.ax3d.text(self.wellsDf[i]['EW'].iloc[-1], self.wellsDf[i]['NS'].iloc[-1], self.wellsDf[i]['TVD'].iloc[-1], self.label[i].text()))
+        conn.close()
+
+        return
+
     def closeEvent(self, event):
         self.threedWin.close()
         self.close()
