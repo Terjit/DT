@@ -4,6 +4,9 @@ import chartView as cv
 import padView as pv
 import wellPath as wp
 
+
+
+
 if __name__ == "__main__":
     app = QApplication()
     well = '3S-714'
