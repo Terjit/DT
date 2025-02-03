@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QGridLayout, QLabel,
     QVBoxLayout, QWidget)
 
 class Ui_padView(object):
-    def setupUi(self, padView):
+    def setupUi(self, padView, pad):
         if not padView.objectName():
             padView.setObjectName(u"padView")
         padView.resize(195, 425)
@@ -72,13 +72,13 @@ class Ui_padView(object):
 
         padView.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(padView)
+        self.retranslateUi(padView, pad)
 
         QMetaObject.connectSlotsByName(padView)
     # setupUi
 
-    def retranslateUi(self, padView):
-        padView.setWindowTitle(QCoreApplication.translate("padView", u"DT - Pad View - {pad}", None))
+    def retranslateUi(self, padView, pad):
+        padView.setWindowTitle(QCoreApplication.translate("padView", f"DT - Pad View - {pad}", None))
         self.label_3.setText(QCoreApplication.translate("padView", u"Highlight", None))
         self.label.setText(QCoreApplication.translate("padView", u"Show", None))
         self.label_2.setText(QCoreApplication.translate("padView", u"Well", None))

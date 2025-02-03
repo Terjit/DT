@@ -14,7 +14,7 @@ class wellPath(QMainWindow):
         self.ui = wpUi.Ui_wellPathWindow()
         self.chartViewWindow = None
         self.padViewWindow = None
-        self.ui.setupUi(self)
+        self.ui.setupUi(self, well)
         self.setFixedSize(self.size())
         self.move(250,50)
         

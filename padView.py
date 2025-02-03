@@ -20,7 +20,7 @@ class padView(QMainWindow):
         self.annotate = []
         self.ui = pvUi.Ui_padView()
         self.threedWin = QMainWindow()
-        self.ui.setupUi(self)
+        self.ui.setupUi(self, self.pad)
         self.setFixedSize(self.size())
         self.move(250,355)
         self.getWells()

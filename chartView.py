@@ -21,7 +21,7 @@ class chartView(QMainWindow):
         self.sectionWin = QMainWindow()
         self.planWin = QMainWindow()
         self.threedWin = QMainWindow()
-        self.ui.setupUi(self)
+        self.ui.setupUi(self, well)
         self.setFixedSize(self.size())
         self.move(250,355)
         

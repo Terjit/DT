@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>wellPathWindow</class>
- <widget class="QMainWindow" name="wellPathWindow">
+ <class>pvaWindow</class>
+ <widget class="QMainWindow" name="pvaWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>195</width>
-    <height>269</height>
+    <height>268</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DT - Well Path Editor - {well}</string>
+   <string>DT - PvA - {well}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>9</y>
+      <y>10</y>
       <width>171</width>
-      <height>251</height>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="chartBtn">
+      <widget class="QPushButton" name="updatePlanBtn">
        <property name="text">
-        <string>Chart View</string>
+        <string>Update Planned</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="padBtn">
+      <widget class="QPushButton" name="updateActualBtn">
        <property name="text">
-        <string>Pad View</string>
+        <string>Update Actual</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="planVactualBtn">
+      <widget class="QPushButton" name="sectionBtn">
        <property name="text">
-        <string>Plan vs. Actual</string>
+        <string>Section View</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pdfBtn">
+      <widget class="QPushButton" name="planBtn">
        <property name="text">
-        <string>Generate PDF Report</string>
+        <string>Plan View</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="updateBtn">
+      <widget class="QPushButton" name="threedBtn">
        <property name="text">
-        <string>Update Dirrectional Data</string>
+        <string>3D View</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="exportBtn">
+      <widget class="QCheckBox" name="formationsBox">
        <property name="text">
-        <string>Export .csv</string>
+        <string>Show Formations</string>
        </property>
       </widget>
      </item>
