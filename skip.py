@@ -10,8 +10,8 @@ import wellPath as wp
 if __name__ == "__main__":
     app = QApplication()
     well = '3S-714'
-    #win = cv.chartView(well)
+    win = cv.chartView(well)
     #win = pv.padView(well)
-    win = wp.wellPath(well)
+    #win = wp.wellPath(well)
 
     app.exec()
