@@ -22,12 +22,12 @@ class Ui_pvaWindow(object):
     def setupUi(self, pvaWindow, well):
         if not pvaWindow.objectName():
             pvaWindow.setObjectName(u"pvaWindow")
-        pvaWindow.resize(195, 268)
+        pvaWindow.resize(195, 309)
         self.centralwidget = QWidget(pvaWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.widget = QWidget(self.centralwidget)
         self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(10, 10, 171, 241))
+        self.widget.setGeometry(QRect(10, 20, 171, 271))
         self.verticalLayout = QVBoxLayout(self.widget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -45,6 +45,11 @@ class Ui_pvaWindow(object):
         self.sectionBtn.setObjectName(u"sectionBtn")
 
         self.verticalLayout.addWidget(self.sectionBtn)
+
+        self.tvdBtn = QPushButton(self.widget)
+        self.tvdBtn.setObjectName(u"tvdBtn")
+
+        self.verticalLayout.addWidget(self.tvdBtn)
 
         self.planBtn = QPushButton(self.widget)
         self.planBtn.setObjectName(u"planBtn")
@@ -73,6 +78,7 @@ class Ui_pvaWindow(object):
         self.updatePlanBtn.setText(QCoreApplication.translate("pvaWindow", u"Update Planned", None))
         self.updateActualBtn.setText(QCoreApplication.translate("pvaWindow", u"Update Actual", None))
         self.sectionBtn.setText(QCoreApplication.translate("pvaWindow", u"Section View", None))
+        self.tvdBtn.setText(QCoreApplication.translate("pvaWindow", u"TVD vs MD", None))
         self.planBtn.setText(QCoreApplication.translate("pvaWindow", u"Plan View", None))
         self.threedBtn.setText(QCoreApplication.translate("pvaWindow", u"3D View", None))
         self.formationsBox.setText(QCoreApplication.translate("pvaWindow", u"Show Formations", None))

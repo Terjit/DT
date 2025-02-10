@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>195</width>
-    <height>268</height>
+    <height>309</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>20</y>
       <width>171</width>
-      <height>241</height>
+      <height>271</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -42,6 +42,13 @@
       <widget class="QPushButton" name="sectionBtn">
        <property name="text">
         <string>Section View</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="tvdBtn">
+       <property name="text">
+        <string>TVD vs MD</string>
        </property>
       </widget>
      </item>

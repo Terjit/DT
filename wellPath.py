@@ -5,6 +5,7 @@ import UI.wellPathUi as wpUi
 import importCsv as ic
 import chartView as cv
 import padView as pv
+import pva as planV
 
 class wellPath(QMainWindow):
     def __init__(self, well='None'):
@@ -20,7 +21,8 @@ class wellPath(QMainWindow):
         
         self.ui.chartBtn.clicked.connect(self.chartView)
         self.ui.padBtn.clicked.connect(self.padView)
-        
+        self.ui.planVactualBtn.clicked.connect(self.planVactual)
+
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
         
@@ -42,12 +44,18 @@ class wellPath(QMainWindow):
     def padView(self):
         self.padViewWindow = pv.padView(self.well)
         return
-        
+
+    def planVactual(self):
+        self.planVactualWindow = planV.planVsActual(self.well)
+        return
+
     def closeEvent(self, event):
         if self.chartViewWindow is not None:
             self.chartViewWindow.close()
         if self.padViewWindow is not None:
             self.padViewWindow.close()
+        if self.planVactualWindow is not None:
+            self.planVactualWindow.close()
         self.close()
         return         
 
