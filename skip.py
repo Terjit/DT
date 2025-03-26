@@ -12,8 +12,8 @@ if __name__ == "__main__":
     app = QApplication()
     well = '3S-714'
     #win = cv.chartView(well)
-    win = pv.padView(well)
+    #win = pv.padView(well)
     #win = wp.wellPath(well)
-    #win = pva.planVsActual(well)
+    win = pva.planVsActual(well)
 
     app.exec()

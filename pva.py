@@ -5,13 +5,8 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 import pandas as pd
 import sqlite3
 import UI.pvaUi as pvUi
-<<<<<<< HEAD
-import actual as ac
-
-=======
 import updatePlanned as up
 import updateActual as ua
->>>>>>> 9643a3c0a3ebc92bde83b6a0911e84090cacd830
 
 
 class planVsActual(QMainWindow):
@@ -65,15 +60,6 @@ class planVsActual(QMainWindow):
         return
 
     def updateActual(self):
-<<<<<<< HEAD
-        self.acutalWin = ac.updateActual(self.well)
-        return
-    
-    def closeEvent(self, event):
-        self.acutalWin.close()
-        self.close()
-        return  
-=======
         self.updateA = ua.updateActual(self.well)
         self.pullData()
         return
@@ -209,4 +195,3 @@ class planVsActual(QMainWindow):
         self.threedWin.close()
         self.close()
         return 
->>>>>>> 9643a3c0a3ebc92bde83b6a0911e84090cacd830
