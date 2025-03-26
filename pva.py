@@ -5,6 +5,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 import pandas as pd
 import sqlite3
 import UI.pvaUi as pvUi
+import actual as ac
 
 
 
@@ -33,5 +34,10 @@ class planVsActual(QMainWindow):
         return
 
     def updateActual(self):
-
+        self.acutalWin = ac.updateActual(self.well)
         return
+    
+    def closeEvent(self, event):
+        self.acutalWin.close()
+        self.close()
+        return  
