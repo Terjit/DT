@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QPushButton,
     QSizePolicy, QWidget)
 
-class Ui_importCsvWindow(object):
+class Ui_updateCsvWindow(object):
     def setupUi(self, importCsvWindow, well):
         if not importCsvWindow.objectName():
             importCsvWindow.setObjectName(u"importCsvWindow")
