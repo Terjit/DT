@@ -32,7 +32,8 @@ wells = []
 #              TVD FLOAT,
 #              DLS FLOAT,
 #              NS FLOAT,
-#              EW FLOAT
+#              EW FLOAT,
+#              Planned INTEGER NOT NULL, 
 #              )""")     
 
 #cursor.execute("INSERT INTO WELLS VALUES ('Hilcorp', '500291111114', 'W-239', 70., 150., 'Producer')")
@@ -62,6 +63,14 @@ well = '3T-616'
 
 #for item in data.iterrows():
 #    print(item[1].iloc[0])
+
+#cursor.execute("ALTER TABLE DEV ADD COLUMN Planned INTEGER")
+
+#cursor.execute("UPDATE DEV SET Planned = 1")
+
+data = cursor.execute("UPDATE DEV SET Planned = 0 WHERE wellName = '3S-14'")
+
+
 
 conn.commit()
 

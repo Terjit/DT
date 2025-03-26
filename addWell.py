@@ -31,9 +31,9 @@ class addWell(QMainWindow):
         for item in data:
             for subItem in item:
                 self.wells.append(subItem)
-        
+
+        self.ui.comboBox.addItem('')
         for item in self.wells:
-            self.ui.comboBox.addItem('')
             self.ui.comboBox.addItem(item)
         
         conn.close()
