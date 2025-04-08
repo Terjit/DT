@@ -16,7 +16,6 @@ class updateDir(QMainWindow):
         self.ui = upDirUi.Ui_updateDirWin()
         self.ui.setupUi(self, well)
         self.setFixedSize(self.size())
-        self.setFixedSize(self.size())
         self.move(250,355)
         self.updateP = QMainWindow()
         self.updateA = QMainWindow()
