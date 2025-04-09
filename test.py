@@ -33,7 +33,8 @@ wells = []
 #              DLS FLOAT,
 #              NS FLOAT,
 #              EW FLOAT,
-#              Planned INTEGER NOT NULL, 
+#              Planned INTEGER NOT NULL,
+#              Lateral VARCHAR(255) NOT NUll, 
 #              )""")     
 
 #cursor.execute("INSERT INTO WELLS VALUES ('Hilcorp', '500291111114', 'W-239', 70., 150., 'Producer')")
@@ -64,13 +65,18 @@ well = '3T-616'
 #for item in data.iterrows():
 #    print(item[1].iloc[0])
 
-#cursor.execute("ALTER TABLE DEV ADD COLUMN Planned INTEGER")
+#cursor.execute("ALTER TABLE DEV ADD COLUMN Lateral VCHAR(255)")
 
-#cursor.execute("UPDATE DEV SET Planned = 1")
+#cursor.execute("UPDATE DEV SET Lateral = 'Null'")
 
-data = cursor.execute("UPDATE DEV SET Planned = 0 WHERE wellName = '3S-14'")
+#data = cursor.execute("UPDATE DEV SET Planned = 0 WHERE wellName = '3S-14'")
 
+#cursor.execute("DELETE FROM DEV WHERE wellName ='3T-616'")
 
+data = cursor.execute("Select * from DEV")
+
+for item in data:
+    print(item)
 
 conn.commit()
 

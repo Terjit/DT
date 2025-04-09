@@ -42,9 +42,10 @@ class updateActual(QMainWindow):
                 return
         dataOut['wellName'] = self.well
         dataOut['Planned'] = 0
+        dataOut['Lateral'] = 'NULL'
         for item in dataOut.iterrows():
-            cursor.execute("INSERT INTO DEV VALUES(?,?,?,?,?,?,?,?,?)", 
-                           (item[1].iloc[7],item[1].iloc[0],item[1].iloc[1],item[1].iloc[2],item[1].iloc[3],item[1].iloc[4],item[1].iloc[5],item[1].iloc[6],item[1].iloc[8]))
+            cursor.execute("INSERT INTO DEV VALUES(?,?,?,?,?,?,?,?,?,?)", 
+                           (item[1].iloc[7],item[1].iloc[0],item[1].iloc[1],item[1].iloc[2],item[1].iloc[3],item[1].iloc[4],item[1].iloc[5],item[1].iloc[6],item[1].iloc[8],item[1].iloc[9]))
         conn.commit()
         conn.close()
         self.close()

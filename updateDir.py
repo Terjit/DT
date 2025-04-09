@@ -6,6 +6,7 @@ import dirCalcs as dc
 import UI.updateDirUi as upDirUi
 import updatePlanned as up
 import updateActual as ua
+import updateLateral as ul
 
 class updateDir(QMainWindow):
     def __init__(self, well='None'):
@@ -19,6 +20,8 @@ class updateDir(QMainWindow):
         self.move(250,355)
         self.updateP = QMainWindow()
         self.updateA = QMainWindow()
+        self.updateL = QMainWindow()
+        self.addLatName = QMainWindow()
         
         self.ui.updatePlanBtn.clicked.connect(self.plan)
         self.ui.updateActualBtn.clicked.connect(self.actual)
@@ -35,11 +38,12 @@ class updateDir(QMainWindow):
         return
     
     def lateral(self):
-        
+        self.updateL = ul.updateLateral(self.well)
         return
     
     def closeEvent(self, event):
         self.updateP.close()
         self.updateA.close()
+        self.updateL.close()
         
         return
