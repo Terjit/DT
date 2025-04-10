@@ -12,10 +12,11 @@ import updateDir as upDir
 if __name__ == "__main__":
     app = QApplication()
     well = '3T-616'
+    
+    win = wp.wellPath(well)
     #win = cv.chartView(well)
     #win = pv.padView(well)
-    #win = wp.wellPath(well)
     #win = pva.planVsActual(well)
-    win = upDir.updateDir(well)
+    #win = upDir.updateDir(well)
 
     app.exec()

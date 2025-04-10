@@ -41,10 +41,10 @@ class Ui_updateDirWin(object):
 
         self.verticalLayout.addWidget(self.updateActualBtn)
 
-        self.lateralBtn = QPushButton(self.layoutWidget)
-        self.lateralBtn.setObjectName(u"lateralBtn")
+        #self.lateralBtn = QPushButton(self.layoutWidget)
+        #self.lateralBtn.setObjectName(u"lateralBtn")
 
-        self.verticalLayout.addWidget(self.lateralBtn)
+        #self.verticalLayout.addWidget(self.lateralBtn)
 
         updateDirWin.setCentralWidget(self.centralwidget)
 
@@ -57,6 +57,6 @@ class Ui_updateDirWin(object):
         updateDirWin.setWindowTitle(QCoreApplication.translate("updateDirWin", f"DT - UD - {well}", None))
         self.updatePlanBtn.setText(QCoreApplication.translate("updateDirWin", u"Add/Update Planned", None))
         self.updateActualBtn.setText(QCoreApplication.translate("updateDirWin", u"Add/Update Actual", None))
-        self.lateralBtn.setText(QCoreApplication.translate("updateDirWin", u"Add/Update Lateral", None))
+        #self.lateralBtn.setText(QCoreApplication.translate("updateDirWin", u"Add/Update Lateral", None))
     # retranslateUi
 

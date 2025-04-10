@@ -55,16 +55,16 @@ class padView(QMainWindow):
             for subItem in item:
                 wells.append(subItem)
 
-        data = cursor.execute(f"SELECT DISTINCT wellName from DEV WHERE Planned = 0")
+        data = cursor.execute(f"SELECT DISTINCT wellName from DEV WHERE Planned = 0 AND Lateral = 'NULL'")
         for item in data:
             for subItem in item:
                 gobodygook.append(subItem)
         for item in wells:
             if item in gobodygook:
-                self.wellsDf.append(pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{item}' AND Planned = 0", conn))
-
+                self.wellsDf.append(pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{item}' AND Planned = 0 AND Lateral = 'NULL'", conn))
         j = 0
-        dataA = cursor.execute(f"SELECT DISTINCT wellName FROM DEV where Planned = 0")
+
+        dataA = cursor.execute(f"SELECT DISTINCT wellName FROM DEV where wellName like '{self.pad}%' AND Planned = 0 AND Lateral = 'NULL'")
         for item in dataA:
             for subItem in item:
                 wellsA.append(subItem)
@@ -84,7 +84,7 @@ class padView(QMainWindow):
 
         for item in wells:
             if item not in wellsA:
-                self.wellsP.append(pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{item}'", conn))
+                self.wellsP.append(pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{item}' AND Planned = 1 AND Lateral ='NULL'", conn))
                 dataP.append(item)
         
         j = 0
@@ -120,7 +120,7 @@ class padView(QMainWindow):
             for subItem in item:
                 if h < 331:
                     h += 22
-                data1 = cursor1.execute(f"SELECT * FROM DEV WHERE wellName = '{subItem}' AND Planned = 0")
+                data1 = cursor1.execute(f"SELECT * FROM DEV WHERE wellName = '{subItem}' AND Planned = 0 and Lateral = 'NULL'")
                 if data1.fetchone() is not None:
                     self.showWellA.append(QCheckBox())
                     self.ui.gridLayout.addWidget(self.showWellA[iA], iT+1, 0, 1, 1, alignment=Qt.AlignCenter)
@@ -336,7 +336,7 @@ class padView(QMainWindow):
         #query DB for wellname and Planned = 0 if it is then add to showWellP and highlightP
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
-        data = cursor.execute(f"SELECT * FROM DEV WHERE wellName = '{well}' and Planned = 0")
+        data = cursor.execute(f"SELECT * FROM DEV WHERE wellName = '{well}' and Planned = 0 AND Lateral = 'NULL'")
         if data.fetchone() is not None:
             i = len(self.showWellA)
             spot = len(self.showWell) + len(self.showWellA)
@@ -368,9 +368,9 @@ class padView(QMainWindow):
 
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
-        test = cursor.execute(f"SELECT * FROM DEV WHERE wellName = '{well}' AND Planned = 0")
-        if test.fetchone() != None:
-            self.wellsDf.append(pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{well}' AND Planned = 0", conn))
+        test = cursor.execute(f"SELECT * FROM DEV WHERE wellName = '{well}' AND Planned = 0 AND Lateral = 'NULL'")
+        if test.fetchone() is not None:
+            self.wellsDf.append(pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{well}' AND Planned = 0 AND Lateral = 'NULL'", conn))
             data = cursor.execute(f"SELECT latitude, longitude FROM WELLS WHERE wellName = '{well}'")
             for item in data:
                 lat, lon = item
@@ -378,13 +378,13 @@ class padView(QMainWindow):
             self.wellsDf[-1]['EW'] += x
             self.wellsDf[-1]['NS'] += y
         else:
-            self.wellsP.append(pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{well}' AND Planned = 1", conn))
+            self.wellsP.append(pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{well}' AND Planned = 1 AND Lateral = 'NULL'", conn))
             data = cursor.execute(f"SELECT latitude, longitude FROM WELLS WHERE wellName = '{well}'")
             for item in data:
                 lat, lon = item
             x, y = dc.latLon(lat, lon)
-            self.wellsDf[-1]['EW'] += x
-            self.wellsDf[-1]['NS'] += y
+            self.wellsP[-1]['EW'] += x
+            self.wellsP[-1]['NS'] += y
         try:
             i = len(self.showWellA) - 1
             self.annotateA.append(self.ax3d.text(self.wellsDf[i]['EW'].iloc[-1], self.wellsDf[i]['NS'].iloc[-1], self.wellsDf[i]['TVD'].iloc[-1], self.labelA[i].text()))

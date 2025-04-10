@@ -67,16 +67,19 @@ well = '3T-616'
 
 #cursor.execute("ALTER TABLE DEV ADD COLUMN Lateral VCHAR(255)")
 
-#cursor.execute("UPDATE DEV SET Lateral = 'Null'")
+#cursor.execute("UPDATE DEV SET Lateral = 'NULL' WHERE Lateral = 'NULL'")
 
 #data = cursor.execute("UPDATE DEV SET Planned = 0 WHERE wellName = '3S-14'")
 
-#cursor.execute("DELETE FROM DEV WHERE wellName ='3T-616'")
+#cursor.execute("DELETE FROM DEV WHERE Lateral != 'NULL'")
 
-data = cursor.execute("Select * from DEV")
+#data = cursor.execute("Select * from DEV")
+
+data = cursor.execute("SELECT Distinct wellName FROM DEV WHERE wellName like '3T%' AND Planned = 0 and Lateral = 'NULL'")
 
 for item in data:
-    print(item)
+    for subItem in item:
+        print(subItem)
 
 conn.commit()
 

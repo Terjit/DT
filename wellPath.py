@@ -6,6 +6,7 @@ import importCsv as ic
 import chartView as cv
 import padView as pv
 import pva as planV
+import outputDir as outP
 import updateDir as upDir
 
 class wellPath(QMainWindow):
@@ -18,6 +19,7 @@ class wellPath(QMainWindow):
         self.padViewWindow = None
         self.planVactualWindow = None
         self.updateDirWindow = None
+        self.outputPdfWindow = None
         self.ui.setupUi(self, well)
         self.setFixedSize(self.size())
         self.move(250,50)
@@ -25,6 +27,7 @@ class wellPath(QMainWindow):
         self.ui.chartBtn.clicked.connect(self.chartView)
         self.ui.padBtn.clicked.connect(self.padView)
         self.ui.planVactualBtn.clicked.connect(self.planVactual)
+        self.ui.pdfBtn.clicked.connect(self.outputPdf)
         self.ui.updateBtn.clicked.connect(self.update)
 
         conn = sqlite3.connect('dt.db')
@@ -53,6 +56,10 @@ class wellPath(QMainWindow):
         self.planVactualWindow = planV.planVsActual(self.well)
         return
 
+    def outputPdf(self):
+        self.outputPdfWindow = outP.outputDirPdf(self.well)
+        return
+
     def update(self):
         self.updateDirWindow = upDir.updateDir(self.well)
         return
@@ -66,6 +73,8 @@ class wellPath(QMainWindow):
             self.planVactualWindow.close()
         if self.updateDirWindow is not None:
             self.updateDirWindow.close()
+        if self.outputPdfWindow is not None:
+            self.outputPdfWindow.close()
         self.close()
         return         
 

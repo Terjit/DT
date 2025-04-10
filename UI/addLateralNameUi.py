@@ -15,14 +15,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLineEdit,
-    QMainWindow, QPushButton, QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QHBoxLayout, QLabel,
+    QLineEdit, QMainWindow, QPushButton, QSizePolicy,
+    QWidget)
 
 class Ui_updateLatNameWin(object):
     def setupUi(self, updateLatNameWin, well):
         if not updateLatNameWin.objectName():
             updateLatNameWin.setObjectName(u"updateLatNameWin")
-        updateLatNameWin.resize(225, 135)
+        updateLatNameWin.resize(225, 173)
         font = QFont()
         font.setPointSize(5)
         updateLatNameWin.setFont(font)
@@ -42,13 +43,13 @@ class Ui_updateLatNameWin(object):
         self.lineEdit.setObjectName(u"lineEdit")
         self.lineEdit.setGeometry(QRect(100, 40, 113, 31))
         self.lineEdit.setFont(font1)
-        self.widget = QWidget(self.centralwidget)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(12, 90, 206, 27))
-        self.horizontalLayout = QHBoxLayout(self.widget)
+        self.layoutWidget = QWidget(self.centralwidget)
+        self.layoutWidget.setObjectName(u"layoutWidget")
+        self.layoutWidget.setGeometry(QRect(12, 120, 201, 41))
+        self.horizontalLayout = QHBoxLayout(self.layoutWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.addLateralBtn = QPushButton(self.widget)
+        self.addLateralBtn = QPushButton(self.layoutWidget)
         self.addLateralBtn.setObjectName(u"addLateralBtn")
         font2 = QFont()
         font2.setPointSize(9)
@@ -56,11 +57,29 @@ class Ui_updateLatNameWin(object):
 
         self.horizontalLayout.addWidget(self.addLateralBtn)
 
-        self.cancelBtn = QPushButton(self.widget)
+        self.cancelBtn = QPushButton(self.layoutWidget)
         self.cancelBtn.setObjectName(u"cancelBtn")
         self.cancelBtn.setFont(font2)
 
         self.horizontalLayout.addWidget(self.cancelBtn)
+
+        self.widget = QWidget(self.centralwidget)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(10, 91, 211, 21))
+        self.horizontalLayout_2 = QHBoxLayout(self.widget)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.plannedBox = QCheckBox(self.widget)
+        self.plannedBox.setObjectName(u"plannedBox")
+        self.plannedBox.setFont(font2)
+
+        self.horizontalLayout_2.addWidget(self.plannedBox)
+
+        self.actualBox = QCheckBox(self.widget)
+        self.actualBox.setObjectName(u"actualBox")
+        self.actualBox.setFont(font2)
+
+        self.horizontalLayout_2.addWidget(self.actualBox)
 
         updateLatNameWin.setCentralWidget(self.centralwidget)
 
@@ -76,5 +95,7 @@ class Ui_updateLatNameWin(object):
         self.lineEdit.setText("")
         self.addLateralBtn.setText(QCoreApplication.translate("updateLatNameWin", u"Add/Update Lateral", None))
         self.cancelBtn.setText(QCoreApplication.translate("updateLatNameWin", u"Cancel", None))
+        self.plannedBox.setText(QCoreApplication.translate("updateLatNameWin", u"Planned", None))
+        self.actualBox.setText(QCoreApplication.translate("updateLatNameWin", u"Actual", None))
     # retranslateUi
 

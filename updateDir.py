@@ -25,7 +25,7 @@ class updateDir(QMainWindow):
         
         self.ui.updatePlanBtn.clicked.connect(self.plan)
         self.ui.updateActualBtn.clicked.connect(self.actual)
-        self.ui.lateralBtn.clicked.connect(self.lateral)
+        #self.ui.lateralBtn.clicked.connect(self.lateral)
         
         self.show()
     
