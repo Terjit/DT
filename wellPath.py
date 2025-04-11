@@ -1,6 +1,7 @@
 import sqlite3
 from math import floor
-from PySide6.QtWidgets import QMainWindow, QMessageBox
+import pandas as pd
+from PySide6.QtWidgets import QMainWindow, QMessageBox, QFileDialog
 import UI.wellPathUi as wpUi
 import importCsv as ic
 import chartView as cv
@@ -29,13 +30,14 @@ class wellPath(QMainWindow):
         self.ui.planVactualBtn.clicked.connect(self.planVactual)
         self.ui.pdfBtn.clicked.connect(self.outputPdf)
         self.ui.updateBtn.clicked.connect(self.update)
+        self.ui.exportBtn.clicked.connect(self.exportCsv)
 
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
         
         data = cursor.execute(f"SELECT * FROM DEV WHERE wellName = '{self.well}'")
         
-        if data.fetchone():
+        if data.fetchone() is not None:
             self.show()
         else:
             try:
@@ -62,6 +64,15 @@ class wellPath(QMainWindow):
 
     def update(self):
         self.updateDirWindow = upDir.updateDir(self.well)
+        return
+
+    def exportCsv(self):
+        fileName, _ = QFileDialog.getSaveFileName(self, "Save File", "", ".CSV Files (*.CSV)")
+        conn = sqlite3.connect('dt.db')
+        self.wellDf = pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{self.well}' AND Planned = 1 AND Lateral = 'NULL'", conn)
+        self.wellDf = self.wellDf.drop(columns=['Planned','Lateral'])
+        self.wellDf.to_csv(fileName, index=False)
+        conn.close()
         return
 
     def closeEvent(self, event):

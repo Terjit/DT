@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>195</width>
-    <height>306</height>
+    <height>259</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,10 +38,10 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>181</width>
-      <height>230</height>
+      <x>11</x>
+      <y>61</y>
+      <width>171</width>
+      <height>191</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -81,30 +81,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_7">
+      <widget class="QPushButton" name="generateBtn">
        <property name="text">
-        <string>Actual - Section View</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_8">
-       <property name="text">
-        <string>Actual - TVD vs. MD View</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_9">
-       <property name="text">
-        <string>Actual - Plan View</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_6">
-       <property name="text">
-        <string>Actual - Directional Data</string>
+        <string>Generate</string>
        </property>
       </widget>
      </item>

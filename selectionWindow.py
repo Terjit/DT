@@ -4,6 +4,7 @@ import existingWell as ew
 import newWell as nw
 import formations as form
 import wellPath as wp
+import wellBuilder as wb
 
 class selectionWindow(QMainWindow):
     def __init__(self, well):
@@ -18,6 +19,7 @@ class selectionWindow(QMainWindow):
         
         self.ui.formationBtn.clicked.connect(self.formations)
         self.ui.wellPathBtn.clicked.connect(self.wellPath)
+        self.ui.wellBuilderBtn.clicked.connect(self.wellBuild)
         self.ui.editWellBtn.clicked.connect(self.editWell)
         self.ui.changeWellBtn.clicked.connect(self.changeWell)
         
@@ -39,7 +41,11 @@ class selectionWindow(QMainWindow):
         self.change = ew.existingWell(self.well)
         self.hide()
         return
-                
+
+    def wellBuild(self):
+        self.build = wb.wellBuilderWindow(self.well)
+        return
+
     def closeEvent(self, event):
         quit = QMessageBox.critical(self, "Verify Close", "Are you sure you want to exit the program?", buttons=QMessageBox.Yes | QMessageBox.No)
         if quit == QMessageBox.No:

@@ -16,13 +16,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QLabel, QMainWindow,
-    QSizePolicy, QVBoxLayout, QWidget)
+    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, well):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(195, 306)
+        MainWindow.resize(195, 259)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.label = QLabel(self.centralwidget)
@@ -34,7 +34,7 @@ class Ui_MainWindow(object):
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.widget = QWidget(self.centralwidget)
         self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(10, 60, 181, 230))
+        self.widget.setGeometry(QRect(11, 61, 171, 191))
         self.verticalLayout = QVBoxLayout(self.widget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -63,25 +63,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.checkBox_5)
 
-        self.checkBox_7 = QCheckBox(self.widget)
-        self.checkBox_7.setObjectName(u"checkBox_7")
+        self.generateBtn = QPushButton(self.widget)
+        self.generateBtn.setObjectName(u"generateBtn")
 
-        self.verticalLayout.addWidget(self.checkBox_7)
-
-        self.checkBox_8 = QCheckBox(self.widget)
-        self.checkBox_8.setObjectName(u"checkBox_8")
-
-        self.verticalLayout.addWidget(self.checkBox_8)
-
-        self.checkBox_9 = QCheckBox(self.widget)
-        self.checkBox_9.setObjectName(u"checkBox_9")
-
-        self.verticalLayout.addWidget(self.checkBox_9)
-
-        self.checkBox_6 = QCheckBox(self.widget)
-        self.checkBox_6.setObjectName(u"checkBox_6")
-
-        self.verticalLayout.addWidget(self.checkBox_6)
+        self.verticalLayout.addWidget(self.generateBtn)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -98,9 +83,6 @@ class Ui_MainWindow(object):
         self.checkBox_3.setText(QCoreApplication.translate("MainWindow", u"Plan - TVD vs. MD View", None))
         self.checkBox_4.setText(QCoreApplication.translate("MainWindow", u"Plan - Plan View", None))
         self.checkBox_5.setText(QCoreApplication.translate("MainWindow", u"Plan - Directional Data", None))
-        self.checkBox_7.setText(QCoreApplication.translate("MainWindow", u"Actual - Section View", None))
-        self.checkBox_8.setText(QCoreApplication.translate("MainWindow", u"Actual - TVD vs. MD View", None))
-        self.checkBox_9.setText(QCoreApplication.translate("MainWindow", u"Actual - Plan View", None))
-        self.checkBox_6.setText(QCoreApplication.translate("MainWindow", u"Actual - Directional Data", None))
+        self.generateBtn.setText(QCoreApplication.translate("MainWindow", u"Generate", None))
     # retranslateUi
 
