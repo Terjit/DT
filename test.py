@@ -34,8 +34,46 @@ wells = []
 #              NS FLOAT,
 #              EW FLOAT,
 #              Planned INTEGER NOT NULL,
-#              Lateral VARCHAR(255) NOT NUll, 
-#              )""")     
+#              Lateral VARCHAR(255) NOT NUll 
+#              )""")
+
+#cursor.execute("""CREATE TABLE CASING(
+#               wellName VARCHAR(255) NOT NULL,
+#               casingOd FLOAT NOT NULL,
+#               casingWeight FLOAT NOT NULL,
+#               casingGrade FLOAT NOT NULL,
+#               casingTop FLOAT NOT NULL,
+#               casingBottom FLOAT NOT NULL           
+#               )""")
+
+#cursor.execute("""CREATE TABLE CSGDATA(
+#               od FLOAT NOT NULL,
+#               weight FLOAT NOT NULL,
+#               grade VARCHAR(255) NOT NULL,
+#               id FLOAT NOT NULL,
+#               drift FLOAT NOT NULL,
+#               cp FLOAT NOT NULL,
+#               ypp FLOAT NOT NULL,
+#               yps FLOAT NOT NULL,
+#               ypl FLOAT NOT NULL,
+#               ypb FLOAT NOT NULL,
+#               jss FLOAT NOT NULL,
+#               jsl FLOAT NOT NULL,
+#               jsb FLOAT NOT NULL,
+#               by FLOAT NOT NULL,
+#               wall FLOAT NOT NULL,
+#               disp FLOAT NOT NULL,
+#               cap FLOAT NOT NULL
+#               )""")
+
+#dfIn = pd.read_csv('casingInfo.csv')
+#dfIn = dfIn.fillna(0)
+#for item in dfIn.iterrows():
+#    cursor.execute("INSERT INTO CSGDATA VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+#                  (item[1].iloc[0],item[1].iloc[1],item[1].iloc[2],item[1].iloc[3],item[1].iloc[4],item[1].iloc[5],item[1].iloc[6],item[1].iloc[7],item[1].iloc[8],item[1].iloc[9],
+#                   item[1].iloc[10],item[1].iloc[11],item[1].iloc[12],item[1].iloc[13],item[1].iloc[14],item[1].iloc[15],item[1].iloc[16]))
+
+
 
 #cursor.execute("INSERT INTO WELLS VALUES ('Hilcorp', '500291111114', 'W-239', 70., 150., 'Producer')")
 #cursor.execute("INSERT INTO WELLS VALUES ('CONOCO', '500291111112', '3T-612', 70.42095, 150.2628, 'Producer')")
@@ -73,13 +111,20 @@ well = '3T-616'
 
 #cursor.execute("DELETE FROM DEV WHERE Lateral != 'NULL'")
 
-#data = cursor.execute("Select * from DEV")
+#data = cursor.execute("Select * from CSGDATA")
 
-data = cursor.execute("SELECT Distinct wellName FROM DEV WHERE wellName like '3T%' AND Planned = 0 and Lateral = 'NULL'")
+#data = cursor.execute("SELECT Distinct wellName FROM DEV WHERE wellName like '3T%' AND Planned = 0 and Lateral = 'NULL'")
 
+#for item in data:
+#    print(item)
+#    for subItem in item:
+#        print(subItem)
+
+data = cursor.execute("SELECT DISTINCT od FROM CSGDATA")
 for item in data:
-    for subItem in item:
-        print(subItem)
+    print(item)
+
+print("Done")
 
 conn.commit()
 
