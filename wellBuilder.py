@@ -20,7 +20,8 @@ class wellBuilderWindow(QMainWindow):
         self.ui.surfaceBtn.clicked.connect(self.surface)
 
         self.show()
-    
+
+
     def wellSchematic(self):
         self.fig = plt.Figure(figsize=(9,10))
         self.canvas = FigureCanvasQTAgg(self.fig)
@@ -38,7 +39,7 @@ class wellBuilderWindow(QMainWindow):
         return
 
     def surface(self):
-        self.addSurf = addC.addCasingWindow(self.well)
+        self.addSurf = addC.addCasingWindow(self.well, 'surface')
         return
 
 

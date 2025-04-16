@@ -39,9 +39,10 @@ wells = []
 
 #cursor.execute("""CREATE TABLE CASING(
 #               wellName VARCHAR(255) NOT NULL,
+#               sectionName VARCHAR(255) NOT NULL,
 #               casingOd FLOAT NOT NULL,
 #               casingWeight FLOAT NOT NULL,
-#               casingGrade FLOAT NOT NULL,
+#               casingGrade VARCHAR(255) NOT NULL,
 #               casingTop FLOAT NOT NULL,
 #               casingBottom FLOAT NOT NULL           
 #               )""")
@@ -65,6 +66,8 @@ wells = []
 #               disp FLOAT NOT NULL,
 #               cap FLOAT NOT NULL
 #               )""")
+
+
 
 #dfIn = pd.read_csv('casingInfo.csv')
 #dfIn = dfIn.fillna(0)
@@ -120,9 +123,12 @@ well = '3T-616'
 #    for subItem in item:
 #        print(subItem)
 
-data = cursor.execute("SELECT DISTINCT od FROM CSGDATA")
+data = cursor.execute("SELECT * FROM CASING")
 for item in data:
     print(item)
+
+#cursor.execute("DROP TABLE CASING")
+
 
 print("Done")
 
