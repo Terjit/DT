@@ -40,6 +40,7 @@ wells = []
 #cursor.execute("""CREATE TABLE CASING(
 #               wellName VARCHAR(255) NOT NULL,
 #               sectionName VARCHAR(255) NOT NULL,
+#               holeDia FLOAT NOT NULL,
 #               casingOd FLOAT NOT NULL,
 #               casingWeight FLOAT NOT NULL,
 #               casingGrade VARCHAR(255) NOT NULL,
@@ -123,12 +124,13 @@ well = '3T-616'
 #    for subItem in item:
 #        print(subItem)
 
-data = cursor.execute("SELECT * FROM CASING")
-for item in data:
-    print(item)
+#data = cursor.execute("SELECT * FROM CASING WHERE wellName = '3T-616'")
+#for item in data:
+#    print(item)
 
 #cursor.execute("DROP TABLE CASING")
 
+cursor.execute("DELETE FROM CASING WHERE wellName ='3T-616'")
 
 print("Done")
 
