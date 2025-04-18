@@ -68,6 +68,21 @@ wells = []
 #               cap FLOAT NOT NULL
 #               )""")
 
+#cursor.execute("""CREATE TABLE TUBDATA(
+#               od FLOAT NOT NULL,
+#               weight FLOAT NOT NULL,
+#               grade VARCHAR(255) NOT NULL,
+#               id FLOAT NOT NULL,
+#               drift FLOAT NOT NULL,
+#               cp FLOAT NOT NULL,
+#               yp FLOAT NOT NULL,
+#               js FLOAT NOT NULL,
+#               wall FLOAT NOT NULL,
+#               disp FLOAT NOT NULL,
+#               cap FLOAT NOT NULL,
+#               cup FLOAT NOT NULL
+#               )""")
+
 
 
 #dfIn = pd.read_csv('casingInfo.csv')
@@ -76,6 +91,13 @@ wells = []
 #    cursor.execute("INSERT INTO CSGDATA VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
 #                  (item[1].iloc[0],item[1].iloc[1],item[1].iloc[2],item[1].iloc[3],item[1].iloc[4],item[1].iloc[5],item[1].iloc[6],item[1].iloc[7],item[1].iloc[8],item[1].iloc[9],
 #                   item[1].iloc[10],item[1].iloc[11],item[1].iloc[12],item[1].iloc[13],item[1].iloc[14],item[1].iloc[15],item[1].iloc[16]))
+    
+#dfIn = pd.read_csv('tubinginfo.csv')
+#dfIn = dfIn.fillna(0)
+#for item in dfIn.iterrows():
+#    cursor.execute("INSERT INTO TUBDATA VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", 
+#                  (item[1].iloc[0],item[1].iloc[1],item[1].iloc[2],item[1].iloc[3],item[1].iloc[4],item[1].iloc[5],item[1].iloc[6],item[1].iloc[7],item[1].iloc[8],item[1].iloc[9],
+#                   item[1].iloc[10],item[1].iloc[11]))
 
 
 
@@ -124,13 +146,13 @@ well = '3T-616'
 #    for subItem in item:
 #        print(subItem)
 
-#data = cursor.execute("SELECT * FROM CASING WHERE wellName = '3T-616'")
-#for item in data:
-#    print(item)
+data = cursor.execute("SELECT * FROM CASING WHERE wellName = '3T-616'")
+for item in data:
+    print(item)
 
 #cursor.execute("DROP TABLE CASING")
 
-cursor.execute("DELETE FROM CASING WHERE wellName ='3T-616'")
+#cursor.execute("DELETE FROM CASING WHERE wellName ='3T-616'")
 
 print("Done")
 

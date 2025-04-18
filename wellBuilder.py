@@ -11,29 +11,41 @@ class wellBuilderWindow(QMainWindow):
     def __init__(self, well):
         super().__init__()
         self.well = well
+        self.flag = 0
         self.ui = wbUi.Ui_wellBuilder()
         self.wellSchWin = QMainWindow()
+        self.addCond = QMainWindow()
         self.addSurf = QMainWindow()
+        self.addInt = QMainWindow()
+        self.addProd = QMainWindow()
+        self.addLiner = QMainWindow()
+        self.addTube = QMainWindow()
         self.ui.setupUi(self, well)
         self.setFixedSize(self.size())
         self.move(250,50)
 
+        self.ui.condBtn.clicked.connect(self.cond)
         self.ui.surfaceBtn.clicked.connect(self.surface)
         self.ui.intBtn.clicked.connect(self.intermediate)
+        self.ui.prodBtn.clicked.connect(self.prod)
+        self.ui.lineBtn.clicked.connect(self.liner)
+        self.ui.tubeBtn.clicked.connect(self.tube)
         self.wellSchematic()
         self.show()
     
     @Slot(str)
     def wellSchematic(self):
         self.fig = plt.Figure(figsize=(9,10))
+        
         self.canvas = FigureCanvasQTAgg(self.fig)
         self.axs = self.fig.add_subplot()
+        self.fig.tight_layout()
         self.wellSchWin.setCentralWidget(self.canvas)
         self.wellSchWin.setWindowTitle(f"Well Schematic - {self.well}")
         self.wellSchWin.move(450,50)
         self.axs.invert_yaxis()
         self.axs.axis('off')
-        self.axs.set_xlim(-20,20)
+        self.axs.set_xlim(-30,15)
 
         self.draw()
 
@@ -51,7 +63,15 @@ class wellBuilderWindow(QMainWindow):
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
         cursor1 = conn.cursor()
-        data = cursor.execute(f"SELECT * FROM CASING WHERE wellName = '{self.well}'")
+        data = cursor.execute(f"""SELECT * FROM CASING WHERE wellName = '{self.well}' ORDER BY CASE
+                                WHEN sectionName = 'Conductor' THEN 1
+                                WHEN sectionName = 'Surface' THEN 2
+                                WHEN sectionName = 'Intermediate' THEN 3
+                                WHEN sectionName = 'Liner' THEN 4
+                                WHEN sectionName = 'Production' THEN 5
+                                WHEN sectionName = 'Tubing' THEN 6
+                              END""")
+        i=0
         for item in data:
             data1 = cursor1.execute(f"SELECT id FROM CSGDATA WHERE od = {item[3]} AND weight = '{item[4]}' AND grade = '{item[5]}'")
             for item1 in data1:
@@ -62,17 +82,27 @@ class wellBuilderWindow(QMainWindow):
             self.od.append(item[3])
             self.top.append(item[6])
             self.bottom.append(item[7])
+            if item[1] == 'Intermediate':
+                self.flag = i
+            i += 1
         conn.close()
-        print(len(self.id))
         if len(self.id) > 0:
-            self.axs.hlines(0, xmin=-25, xmax=-(self.hole[0]/2), color='green')
-            self.axs.hlines(0, xmin=25, xmax=(self.hole[0]/2), color='green')
+            if self.section[0] == 'Conductor':
+                self.axs.hlines(0, xmin=-30, xmax=-(self.id[0]/2), color='green')
+                self.axs.hlines(0, xmin=25, xmax=(self.id[0]/2), color='green')
+            else:
+                self.axs.hlines(0, xmin=-30, xmax=-(self.hole[0]/2), color='green')
+                self.axs.hlines(0, xmin=25, xmax=(self.hole[0]/2), color='green')
         else:
-            self.axs.hlines(0, xmin=-25, xmax=-6, color='green')
+            self.axs.hlines(0, xmin=-30, xmax=-6, color='green')
             self.axs.hlines(0, xmin=25, xmax=6, color='green')
         i = 0
         while i < len(self.id):
-            if self.section[i] == 'Surface':
+            if self.section[i] == 'Conductor':
+                self.axs.vlines((-self.id[i]/2), ymin = self.top[i], ymax=self.bottom[i], color='black')
+                self.axs.vlines((self.id[i]/2), ymin = self.top[i], ymax=self.bottom[i], color='black')
+                self.hole[i] = self.id[i]
+            elif self.section[i] == 'Surface' and i == 0:
                 self.axs.vlines((-self.hole[i]/2), ymin = self.top[i], ymax=self.bottom[i], color='brown')
                 self.axs.vlines((self.hole[i]/2), ymin = self.top[i], ymax=self.bottom[i], color='brown')
                 self.axs.vlines((-self.od[i]/2), ymin = self.top[i], ymax=self.bottom[i], color='black')
@@ -85,6 +115,9 @@ class wellBuilderWindow(QMainWindow):
                 lefty = [self.bottom[i],(self.bottom[i]-100)]
                 self.axs.plot(rightx,righty, color='black')
                 self.axs.plot(leftx,lefty, color='black')
+            elif self.section[i] == 'Tubing':
+                self.axs.vlines((-self.od[i]/2), ymin = self.top[i], ymax=self.bottom[i], color='black')
+                self.axs.vlines((self.od[i]/2), ymin = self.top[i], ymax=self.bottom[i], color='black')
             else:
                 self.axs.vlines((-self.hole[i]/2), ymin = self.bottom[i-1], ymax=self.bottom[i], color='brown')
                 self.axs.vlines((self.hole[i]/2), ymin = self.bottom[i-1], ymax=self.bottom[i], color='brown')
@@ -99,11 +132,50 @@ class wellBuilderWindow(QMainWindow):
                 leftx = [(-self.od[i]/2-1), (-self.od[i]/2)]
                 lefty = [self.bottom[i],(self.bottom[i]-100)]
                 self.axs.plot(rightx,righty, color='black')
-                self.axs.plot(leftx,lefty, color='black')   
+                self.axs.plot(leftx,lefty, color='black')
+            if self.section[i] == 'Liner' or self.section[i] == 'Production':
+                self.axs.hlines(self.top[i], self.od[i]/2, (self.od[self.flag]/2), color='black')
+                self.axs.hlines(self.top[i], -self.od[i]/2, -(self.od[self.flag]/2), color='black')
+                self.axs.hlines(self.top[i]+250, self.od[i]/2, (self.od[self.flag]/2), color='black')
+                self.axs.hlines(self.top[i]+250, -self.od[i]/2, -(self.od[self.flag]/2), color='black')
+                rightx = [(self.od[i]/2), (self.od[self.flag]/2)]
+                righty = [self.top[i],(self.top[i]+250)]
+                rightx1 = [(self.od[self.flag]/2), (self.od[i]/2)]
+                righty1 = [self.top[i],(self.top[i]+250)]
+                leftx = [(-self.od[i]/2), (-self.od[self.flag]/2)]
+                lefty = [self.top[i],(self.top[i]+250)]
+                leftx1 = [(-self.od[self.flag]/2), (-self.od[i]/2)]
+                lefty1 = [self.top[i],(self.top[i]+250)]
+                self.axs.plot(rightx,righty, color='black')
+                self.axs.plot(rightx1,righty1, color='black')
+                self.axs.plot(leftx,lefty, color='black')
+                self.axs.plot(leftx1,lefty1, color='black')
+            elif self.section[i] == 'Tubing':
+                self.axs.hlines(self.bottom[i]-250, self.od[i]/2, (self.od[self.flag]/2), color='black')
+                self.axs.hlines(self.bottom[i]-250, -self.od[i]/2, -(self.od[self.flag]/2), color='black')
+                self.axs.hlines(self.bottom[i]-500, self.od[i]/2, (self.od[self.flag]/2), color='black')
+                self.axs.hlines(self.bottom[i]-500, -self.od[i]/2, -(self.od[self.flag]/2), color='black')
+                rightx = [(self.od[i]/2), (self.od[self.flag]/2)]
+                righty = [self.bottom[i]-250,(self.bottom[i]-500)]
+                rightx1 = [(self.od[self.flag]/2), (self.od[i]/2)]
+                righty1 = [self.bottom[i]-250,(self.bottom[i]-500)]
+                leftx = [(-self.od[i]/2), (-self.od[self.flag]/2)]
+                lefty = [self.bottom[i]-250,(self.bottom[i]-500)]
+                leftx1 = [(-self.od[self.flag]/2), (-self.od[i]/2)]
+                lefty1 = [self.bottom[i]-250,(self.bottom[i]-500)]
+                self.axs.plot(rightx,righty, color='black')
+                self.axs.plot(rightx1,righty1, color='black')
+                self.axs.plot(leftx,lefty, color='black')
+                self.axs.plot(leftx1,lefty1, color='black')
             i += 1
         
         return
     
+    def cond(self):
+        self.addCond = addC.addCasingWindow(self.well, 'Conductor')
+        self.addCond.dataSignal.connect(self.wellSchematic)
+        return
+
     def surface(self):
         self.addSurf = addC.addCasingWindow(self.well, 'Surface')
         self.addSurf.dataSignal.connect(self.wellSchematic)
@@ -113,10 +185,29 @@ class wellBuilderWindow(QMainWindow):
         self.addInt = addC.addCasingWindow(self.well, 'Intermediate')
         self.addInt.dataSignal.connect(self.wellSchematic)
         return
+    
+    def prod(self):
+        self.addProd = addC.addCasingWindow(self.well, 'Production')
+        self.addProd.dataSignal.connect(self.wellSchematic)
+        return
+    
+    def liner(self):
+        self.addLiner = addC.addCasingWindow(self.well, 'Liner')
+        self.addLiner.dataSignal.connect(self.wellSchematic)
+        return
 
+    def tube(self):
+        self.addTube = addC.addCasingWindow(self.well, 'Tubing')
+        self.addTube.dataSignal.connect(self.wellSchematic)
+        return
 
     def closeEvent(self, event):
         self.wellSchWin.close()
         self.addSurf.close()
+        self.addCond.close()
+        self.addLiner.close()
+        self.addInt.close()
+        self.addProd.close()
+        self.addTube.close()
         self.close()
         return

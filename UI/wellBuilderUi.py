@@ -34,10 +34,15 @@ class Ui_wellBuilder(object):
         self.wellName.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.widget = QWidget(self.centralwidget)
         self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(10, 40, 171, 291))
+        self.widget.setGeometry(QRect(10, 45, 171, 281))
         self.verticalLayout = QVBoxLayout(self.widget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.condBtn = QPushButton(self.widget)
+        self.condBtn.setObjectName(u"condBtn")
+
+        self.verticalLayout.addWidget(self.condBtn)
+
         self.surfaceBtn = QPushButton(self.widget)
         self.surfaceBtn.setObjectName(u"surfaceBtn")
 
@@ -63,11 +68,6 @@ class Ui_wellBuilder(object):
 
         self.verticalLayout.addWidget(self.tubeBtn)
 
-        self.tapeBtn = QPushButton(self.widget)
-        self.tapeBtn.setObjectName(u"tapeBtn")
-
-        self.verticalLayout.addWidget(self.tapeBtn)
-
         wellBuilder.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(wellBuilder, well)
@@ -78,11 +78,11 @@ class Ui_wellBuilder(object):
     def retranslateUi(self, wellBuilder, well):
         wellBuilder.setWindowTitle(QCoreApplication.translate("wellBuilder", f"DT - WB - {well}", None))
         self.wellName.setText(QCoreApplication.translate("wellBuilder", f"{well}", None))
+        self.condBtn.setText(QCoreApplication.translate("wellBuilder", u"Conductor", None))
         self.surfaceBtn.setText(QCoreApplication.translate("wellBuilder", u"Surface Casing", None))
         self.intBtn.setText(QCoreApplication.translate("wellBuilder", u"Intermediate Casing", None))
         self.prodBtn.setText(QCoreApplication.translate("wellBuilder", u"Production Casing", None))
         self.lineBtn.setText(QCoreApplication.translate("wellBuilder", u"Liner", None))
         self.tubeBtn.setText(QCoreApplication.translate("wellBuilder", u"Tubing", None))
-        self.tapeBtn.setText(QCoreApplication.translate("wellBuilder", u"Tapered String", None))
     # retranslateUi
 

@@ -21,6 +21,10 @@ class addCasingWindow(QMainWindow):
         self.setFixedSize(self.size())
         self.ui.OdBox.addItem(self.blank)
         
+        if self.section == 'Conductor' or self.section == 'Tubing':
+            self.ui.holeDia.hide()
+            self.ui.label_6.hide()
+
         self.fillBoxOd()
 
         self.ui.OdBox.currentIndexChanged.connect(self.fillBoxWeight)
@@ -34,7 +38,12 @@ class addCasingWindow(QMainWindow):
     def fillBoxOd(self):
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
-        data = cursor.execute('SELECT DISTINCT od FROM CSGDATA')
+        if self.section == 'Tubing':
+            data = cursor.execute('SELECT DISTINCT od FROM TUBDATA')
+        elif self.section == 'Liner':            
+            data = cursor.execute('SELECT DISTINCT od FROM CSGDATA')
+        else:    
+            data = cursor.execute('SELECT DISTINCT od FROM CSGDATA')
         for item in data:
             for subItem in item:
                 self.ui.OdBox.addItem(str(subItem))
@@ -47,7 +56,12 @@ class addCasingWindow(QMainWindow):
             self.od = float(self.ui.OdBox.currentText())
             conn = sqlite3.connect('dt.db')
             cursor = conn.cursor()
-            data = cursor.execute(f'SELECT DISTINCT weight FROM CSGDATA WHERE od = {self.od}')
+            if self.section == 'Tubing':
+                data = cursor.execute(f'SELECT DISTINCT weight FROM TUBDATA WHERE od = {self.od}')
+            elif self.section == 'Liner':            
+                data = cursor.execute(f'SELECT DISTINCT weight FROM CSGDATA WHERE od = {self.od}')
+            else:    
+                data = cursor.execute(f'SELECT DISTINCT weight FROM CSGDATA WHERE od = {self.od}')
             for item in data:
                 for subItem in item:
                     self.ui.weightBox.addItem(str(subItem))
@@ -63,7 +77,12 @@ class addCasingWindow(QMainWindow):
             self.weight = float(self.ui.weightBox.currentText())
             conn = sqlite3.connect('dt.db')
             cursor = conn.cursor()
-            data = cursor.execute(f'SELECT DISTINCT grade FROM CSGDATA WHERE od = {self.od} and weight = {self.weight}')
+            if self.section == 'Tubing':
+                data = cursor.execute(f'SELECT DISTINCT grade FROM TUBDATA WHERE od = {self.od} and weight = {self.weight}')
+            elif self.section == 'Liner':            
+                data = cursor.execute(f'SELECT DISTINCT grade FROM CSGDATA WHERE od = {self.od} and weight = {self.weight}')
+            else:    
+                data = cursor.execute(f'SELECT DISTINCT grade FROM CSGDATA WHERE od = {self.od} and weight = {self.weight}')
             for item in data:
                 for subItem in item:
                     self.ui.gradeBox.addItem(str(subItem))
@@ -76,7 +95,10 @@ class addCasingWindow(QMainWindow):
     
     def submit(self):
         try:
-            self.holeDia = float(self.ui.holeDia.text())
+            if self.section == 'Conductor' or self.section == 'Tubing':
+                self.holeDia = 0
+            else:
+                self.holeDia = float(self.ui.holeDia.text())
             self.od = float(self.ui.OdBox.currentText())
             self.weight = float(self.ui.weightBox.currentText())
             self.grade = self.ui.gradeBox.currentText()
@@ -85,7 +107,7 @@ class addCasingWindow(QMainWindow):
             conn = sqlite3.connect('dt.db')
             cursor = conn.cursor()
             data = cursor.execute(f"SELECT * FROM CASING WHERE wellName = '{self.well}' AND sectionName = '{self.section}'")
-            if data.fetchone is not None:
+            if data.fetchone() is not None:
                 button = QMessageBox.question(self, "Casing Already Exists", f"The {self.section} casing already exists in the database. Do you want to overwrite?")
                 if button == QMessageBox.Yes:
                     cursor.execute(f"DELETE FROM CASING WHERE wellName = '{self.well}' and sectionName = '{self.section}'")
@@ -95,8 +117,8 @@ class addCasingWindow(QMainWindow):
                     self.close()
                     return
             else:
-                cursor.execute("INSERT INTO CASING VALUES(?,?,?,?,?,?,?)", 
-                            (self.well, self.section, self.od, self.weight, self.grade, self.top, self.bottom))
+                cursor.execute("INSERT INTO CASING VALUES(?,?,?,?,?,?,?,?)", 
+                            (self.well, self.section, self.holeDia, self.od, self.weight, self.grade, self.top, self.bottom))
             conn.commit()
             self.dataSignal.emit(self.well)
             self.close()
