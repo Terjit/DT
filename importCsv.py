@@ -36,7 +36,7 @@ class importCSV(QMainWindow):
         
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
-        dataOut['Planned'] = 0
+        dataOut['Planned'] = 1
         dataOut['Lateral'] = 'NULL'
         for item in dataOut.iterrows():
             cursor.execute("INSERT INTO DEV VALUES(?,?,?,?,?,?,?,?,?,?)", 

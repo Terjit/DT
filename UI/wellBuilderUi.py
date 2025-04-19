@@ -22,7 +22,7 @@ class Ui_wellBuilder(object):
     def setupUi(self, wellBuilder, well):
         if not wellBuilder.objectName():
             wellBuilder.setObjectName(u"wellBuilder")
-        wellBuilder.resize(195, 334)
+        wellBuilder.resize(195, 404)
         self.centralwidget = QWidget(wellBuilder)
         self.centralwidget.setObjectName(u"centralwidget")
         self.wellName = QLabel(self.centralwidget)
@@ -34,7 +34,7 @@ class Ui_wellBuilder(object):
         self.wellName.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.widget = QWidget(self.centralwidget)
         self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(10, 45, 171, 281))
+        self.widget.setGeometry(QRect(11, 41, 171, 351))
         self.verticalLayout = QVBoxLayout(self.widget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -68,6 +68,11 @@ class Ui_wellBuilder(object):
 
         self.verticalLayout.addWidget(self.tubeBtn)
 
+        self.removeBtn = QPushButton(self.widget)
+        self.removeBtn.setObjectName(u"removeBtn")
+
+        self.verticalLayout.addWidget(self.removeBtn)
+
         wellBuilder.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(wellBuilder, well)
@@ -84,5 +89,6 @@ class Ui_wellBuilder(object):
         self.prodBtn.setText(QCoreApplication.translate("wellBuilder", u"Production Casing", None))
         self.lineBtn.setText(QCoreApplication.translate("wellBuilder", u"Liner", None))
         self.tubeBtn.setText(QCoreApplication.translate("wellBuilder", u"Tubing", None))
+        self.removeBtn.setText(QCoreApplication.translate("wellBuilder", u"Remove Casing", None))
     # retranslateUi
 

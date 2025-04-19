@@ -13,7 +13,7 @@ import wellBuilder as wb
 
 if __name__ == "__main__":
     app = QApplication()
-    well = '3T-616'
+    well = '3S-721'
     
     #win = sw.selectionWindow(well)
     #win = wp.wellPath(well)

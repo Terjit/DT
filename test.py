@@ -146,13 +146,18 @@ well = '3T-616'
 #    for subItem in item:
 #        print(subItem)
 
-data = cursor.execute("SELECT * FROM CASING WHERE wellName = '3T-616'")
-for item in data:
-    print(item)
+#cursor.execute("UPDATE DEV SET Planned = 1 WHERE wellName = '3S-721'")
+
+#pad = '3S'
+#data = cursor.execute(f"SELECT DISTINCT wellName FROM DEV where wellName like '{pad}%' AND Planned = 0 AND Lateral = 'NULL'")
+#for item in data:
+#    print(item)
 
 #cursor.execute("DROP TABLE CASING")
 
 #cursor.execute("DELETE FROM CASING WHERE wellName ='3T-616'")
+
+cursor.execute("INSERT INTO CSGDATA VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (4.5,12.6,'P110S',3.958,3.833,9210,11590,0,0,0,396,0,0,0,0.271,0.0045,0.0152))
 
 print("Done")
 

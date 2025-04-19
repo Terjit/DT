@@ -1,96 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>wellBuilder</class>
- <widget class="QMainWindow" name="wellBuilder">
+ <class>removeCsg</class>
+ <widget class="QMainWindow" name="removeCsg">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>195</width>
-    <height>404</height>
+    <width>204</width>
+    <height>279</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DT - WB - {well}</string>
+   <string>DT - WB - Remove Casing - {well}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="wellName">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
       <width>171</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>{well}</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>41</y>
-      <width>171</width>
-      <height>351</height>
+      <height>211</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="condBtn">
+      <widget class="QCheckBox" name="checkBox">
        <property name="text">
         <string>Conductor</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="surfaceBtn">
+      <widget class="QCheckBox" name="checkBox_2">
        <property name="text">
-        <string>Surface Casing</string>
+        <string>Surface</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="intBtn">
+      <widget class="QCheckBox" name="checkBox_3">
        <property name="text">
-        <string>Intermediate Casing</string>
+        <string>Intermediate</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="prodBtn">
-       <property name="text">
-        <string>Production Casing</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="lineBtn">
+      <widget class="QCheckBox" name="checkBox_4">
        <property name="text">
         <string>Liner</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="tubeBtn">
+      <widget class="QCheckBox" name="checkBox_5">
+       <property name="text">
+        <string>Production</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_6">
        <property name="text">
         <string>Tubing</string>
        </property>
       </widget>
      </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="removeBtn">
        <property name="text">
-        <string>Remove Casing</string>
+        <string>Remove</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelBtn">
+       <property name="text">
+        <string>Cancel</string>
        </property>
       </widget>
      </item>

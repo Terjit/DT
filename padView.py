@@ -45,7 +45,7 @@ class padView(QMainWindow):
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
         wells = []
-        wellsA = []
+        self.wellsA = []
         gobodygook = []
         self.wellsP = []
         self.wellsDf = []
@@ -62,13 +62,14 @@ class padView(QMainWindow):
         for item in wells:
             if item in gobodygook:
                 self.wellsDf.append(pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{item}' AND Planned = 0 AND Lateral = 'NULL'", conn))
+    
         j = 0
-
         dataA = cursor.execute(f"SELECT DISTINCT wellName FROM DEV where wellName like '{self.pad}%' AND Planned = 0 AND Lateral = 'NULL'")
+        cursor1 = conn.cursor()
         for item in dataA:
             for subItem in item:
-                wellsA.append(subItem)
-                data = cursor.execute(f"SELECT latitude, longitude FROM WELLS WHERE wellName = '{subItem}'")
+                self.wellsA.append(subItem)
+                data = cursor1.execute(f"SELECT latitude, longitude FROM WELLS WHERE wellName = '{subItem}'")
                 for item in data:
                     lat, lon = item
                 x, y = dc.latLon(lat, lon)
@@ -81,12 +82,10 @@ class padView(QMainWindow):
                 except IndexError:
                     pass
             j += 1
-
         for item in wells:
-            if item not in wellsA:
+            if item not in self.wellsA:
                 self.wellsP.append(pd.read_sql_query(f"SELECT * FROM DEV WHERE wellName = '{item}' AND Planned = 1 AND Lateral ='NULL'", conn))
                 dataP.append(item)
-        
         j = 0
         for item in dataP:
             data = cursor.execute(f"SELECT latitude, longitude FROM WELLS WHERE wellName = '{item}'")

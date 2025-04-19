@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 import UI.wellBuilderUi as wbUi
 import addCasing as addC
+import removeCsg as rmvCsg
 import sqlite3
 
 
@@ -20,6 +21,7 @@ class wellBuilderWindow(QMainWindow):
         self.addProd = QMainWindow()
         self.addLiner = QMainWindow()
         self.addTube = QMainWindow()
+        self.rmvWin = QMainWindow()
         self.ui.setupUi(self, well)
         self.setFixedSize(self.size())
         self.move(250,50)
@@ -30,13 +32,13 @@ class wellBuilderWindow(QMainWindow):
         self.ui.prodBtn.clicked.connect(self.prod)
         self.ui.lineBtn.clicked.connect(self.liner)
         self.ui.tubeBtn.clicked.connect(self.tube)
+        self.ui.removeBtn.clicked.connect(self.remove)
         self.wellSchematic()
         self.show()
     
     @Slot(str)
     def wellSchematic(self):
         self.fig = plt.Figure(figsize=(9,10))
-        
         self.canvas = FigureCanvasQTAgg(self.fig)
         self.axs = self.fig.add_subplot()
         self.fig.tight_layout()
@@ -60,6 +62,8 @@ class wellBuilderWindow(QMainWindow):
         self.top = []
         self.bottom = []
         self.hole = []
+        self.formName = []
+        self.formDepth = []
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
         cursor1 = conn.cursor()
@@ -74,6 +78,10 @@ class wellBuilderWindow(QMainWindow):
         i=0
         for item in data:
             data1 = cursor1.execute(f"SELECT id FROM CSGDATA WHERE od = {item[3]} AND weight = '{item[4]}' AND grade = '{item[5]}'")
+            if data1.fetchone() is None:
+                data1 = cursor1.execute(f"SELECT id FROM TUBDATA WHERE od = {item[3]} AND weight = '{item[4]}' AND grade = '{item[5]}'")
+            else:
+                data1 = cursor1.execute(f"SELECT id FROM CSGDATA WHERE od = {item[3]} AND weight = '{item[4]}' AND grade = '{item[5]}'")
             for item1 in data1:
                 self.id.append(item1[0])
             
@@ -168,7 +176,45 @@ class wellBuilderWindow(QMainWindow):
                 self.axs.plot(leftx,lefty, color='black')
                 self.axs.plot(leftx1,lefty1, color='black')
             i += 1
-        
+        #Pull formations and place on drawing
+        conn = sqlite3.connect('dt.db')
+        cursor = conn.cursor()
+        data = cursor.execute(f"SELECT * FROM FORMATIONS WHERE wellName = '{self.well}'")
+        if data.fetchone() is not None:
+            i = 0
+            for item in data:
+                self.formName.append(item[1])
+                self.formDepth.append(item[2])
+                i += 1
+            i=0
+            while i < len(self.formName):
+                try:
+                    if self.formDepth[i] < max(self.bottom):
+                        self.axs.hlines(self.formDepth[i], 7, 25, color='green', linestyles='dashed', linewidth=1)
+                        self.axs.text(7,self.formDepth[i], self.formName[i], size=8)      
+                    i += 1
+                except ValueError:
+                    i += 1
+        conn.close()
+        #Pull well info and place on drawing
+        conn = sqlite3.connect('dt.db')
+        cursor = conn.cursor()
+        data = cursor.execute(f"SELECT * FROM WELLS WHERE wellName = '{self.well}'")
+        for item in data:
+            self.axs.text(-30,-50, item[0] + ' - ' + item[2] + ' - ' + item[1], size=15)
+        conn.close()
+        #Pull casing info and place on drawing
+        conn = sqlite3.connect('dt.db')
+        cursor = conn.cursor()
+        data = conn.execute(f"SELECT * FROM CASING WHERE wellName ='{self.well}'")
+        for item in data:
+            if item[1] == 'Conductor':
+                self.axs.text(-30,item[7]+200,item[1] + ': ' + str(item[3]) + ' - ' + str(item[4]) + ' - ' + str(item[5]) + ": " + str(item[6]) + "-" + str(item[7]))
+            elif item[1] == 'Tubing':
+                self.axs.text(-30,item[7]*.90,item[1] + ': ' + str(item[3]) + ' - ' + str(item[4]) + ' - ' + str(item[5]) + ": " + str(item[6]) + " - " + str(item[7]))
+            else:
+                self.axs.text(-30,item[7],item[1] + ': ' + str(item[3]) + ' - ' + str(item[4]) + ' - ' + str(item[5]) + ": " + str(item[6]) + " - " + str(item[7]))
+        conn.close()
         return
     
     def cond(self):
@@ -201,6 +247,11 @@ class wellBuilderWindow(QMainWindow):
         self.addTube.dataSignal.connect(self.wellSchematic)
         return
 
+    def remove(self):
+        self.rmvWin = rmvCsg.removeCsgWin(self.well)
+        self.rmvWin.dataSignal.connect(self.wellSchematic)
+        return
+
     def closeEvent(self, event):
         self.wellSchWin.close()
         self.addSurf.close()
@@ -209,5 +260,6 @@ class wellBuilderWindow(QMainWindow):
         self.addInt.close()
         self.addProd.close()
         self.addTube.close()
+        self.rmvWin.close()
         self.close()
         return

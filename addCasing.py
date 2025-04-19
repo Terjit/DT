@@ -24,6 +24,13 @@ class addCasingWindow(QMainWindow):
         if self.section == 'Conductor' or self.section == 'Tubing':
             self.ui.holeDia.hide()
             self.ui.label_6.hide()
+        
+        if self.section == 'Tubing':
+            self.ui.label.setText('Tubing OD')
+            self.ui.label_2.setText('Tubing Weight')
+            self.ui.label_3.setText('Tubing Grade')
+            self.ui.label_4.setText('Tubing Top')
+            self.ui.label_5.setText('Tubing Bottom')
 
         self.fillBoxOd()
 
@@ -38,6 +45,11 @@ class addCasingWindow(QMainWindow):
     def fillBoxOd(self):
         conn = sqlite3.connect('dt.db')
         cursor = conn.cursor()
+        if self.section == 'Liner':
+            data = cursor.execute('SELECT DISTINCT od FROM TUBDATA')
+            for item in data:
+                for subItem in item:
+                    self.ui.OdBox.addItem(str(subItem))
         if self.section == 'Tubing':
             data = cursor.execute('SELECT DISTINCT od FROM TUBDATA')
         elif self.section == 'Liner':            
@@ -47,6 +59,7 @@ class addCasingWindow(QMainWindow):
         for item in data:
             for subItem in item:
                 self.ui.OdBox.addItem(str(subItem))
+
         conn.close()
         return
 
@@ -56,6 +69,11 @@ class addCasingWindow(QMainWindow):
             self.od = float(self.ui.OdBox.currentText())
             conn = sqlite3.connect('dt.db')
             cursor = conn.cursor()
+            if self.section == 'Liner':
+                data = cursor.execute(f'SELECT DISTINCT weight FROM TUBDATA WHERE od = {self.od}')
+                for item in data:
+                    for subItem in item:
+                        self.ui.weightBox.addItem(str(subItem))
             if self.section == 'Tubing':
                 data = cursor.execute(f'SELECT DISTINCT weight FROM TUBDATA WHERE od = {self.od}')
             elif self.section == 'Liner':            
@@ -77,6 +95,11 @@ class addCasingWindow(QMainWindow):
             self.weight = float(self.ui.weightBox.currentText())
             conn = sqlite3.connect('dt.db')
             cursor = conn.cursor()
+            if self.section == 'Liner':
+                data = cursor.execute(f'SELECT DISTINCT grade FROM TUBDATA WHERE od = {self.od} and weight = {self.weight}')
+                for item in data:
+                    for subItem in item:
+                        self.ui.gradeBox.addItem(str(subItem))
             if self.section == 'Tubing':
                 data = cursor.execute(f'SELECT DISTINCT grade FROM TUBDATA WHERE od = {self.od} and weight = {self.weight}')
             elif self.section == 'Liner':            
@@ -148,7 +171,6 @@ class addCasingWindow(QMainWindow):
                 self.ui.casingBottom.setStyleSheet("border: 1px solid gray;")
             except ValueError:
                 self.ui.casingBottom.setStyleSheet("border: 1px solid red;")
-        
         return
 
     def closeEvent(self, event):
